@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">FamilyBingo</string>
+    <string name="check">Check</string>
+    <string name="missed">Missed</string>
+    <string name="play_again">Play Again</string>
+    <string name="you_scored">You Scored</string>
+    <string name="title_text">Family Bingo!</string>
+    <string name="new_game_button">New Game</string>
+    <string name="load_button">Load Game</string>
+    <string name="edit_button">Edit</string>
+    <string name="end_game">End game</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="quote_format">\"%s\"</string>
+    <string name="score_format">Current Score: %d</string>
 </resources>
