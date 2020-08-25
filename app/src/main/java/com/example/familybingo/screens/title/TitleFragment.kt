@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.example.familybingo.R
 import com.example.familybingo.databinding.FragmentTitleBinding
 
@@ -19,8 +20,14 @@ class TitleFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(inflater,
             R.layout.fragment_title, container, false)
 
+        binding.playButton.setOnClickListener{view : View ->
+            view.findNavController().navigate(R.id.action_titleFragment_to_boardSetupFragment)
+        }
+
         return binding.root
     }
+
+
 
 
 }

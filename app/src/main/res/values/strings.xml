@@ -12,7 +12,5 @@
     <string name="confirm_button">Confirm</string>
     <string name="quote_format">\"%s\"</string>
     <string name="score_format">Current Score: %d</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="family_bingo_logo_desc">Family Bingo logo</string>
 </resources>

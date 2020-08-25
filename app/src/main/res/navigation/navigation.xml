@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/titleFragment"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <fragment
+        android:id="@+id/titleFragment"
+        android:name="com.example.familybingo.screens.title.TitleFragment"
+        android:label="TitleFragment"
+        tools:layout="@layout/fragment_title">
+        <action
+            android:id="@+id/action_titleFragment_to_boardSetupFragment"
+            app:destination="@id/boardSetupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/boardSetupFragment"
+        android:name="com.example.familybingo.screens.game.BoardSetupFragment"
+        android:label="board_setup_fragment"
+        tools:layout="@layout/board_setup_fragment" />
+</navigation>
