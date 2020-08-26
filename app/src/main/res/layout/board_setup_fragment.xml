@@ -13,6 +13,7 @@
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/app_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,19 +23,27 @@
             android:id="@+id/field11"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="TextView"
+            android:layout_marginStart="@dimen/board_horizontal_margin"
+            android:layout_marginLeft="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintBottom_toTopOf="@+id/field21"
             app:layout_constraintEnd_toStartOf="@+id/field12"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+            app:layout_constraintVertical_bias=".2"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_weight="1" />
 
         <TextView
             android:id="@+id/field12"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
             app:layout_constraintEnd_toStartOf="@+id/field13"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/field11"
@@ -44,7 +53,8 @@
             android:id="@+id/field13"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
             app:layout_constraintEnd_toStartOf="@+id/field14"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/field12"
@@ -54,7 +64,8 @@
             android:id="@+id/field14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
             app:layout_constraintEnd_toStartOf="@+id/field15"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/field13"
@@ -64,12 +75,292 @@
             android:id="@+id/field15"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:layout_marginEnd="@dimen/board_horizontal_margin"
+            android:layout_marginRight="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/field14"
             app:layout_constraintTop_toTopOf="@+id/field14" />
+
+        <TextView
+            android:id="@+id/field21"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/board_horizontal_margin"
+            android:layout_marginLeft="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintBottom_toTopOf="@+id/field31"
+            app:layout_constraintEnd_toStartOf="@+id/field22"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/field11"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field23"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field21"
+            app:layout_constraintTop_toTopOf="@+id/field21" />
+
+        <TextView
+            android:id="@+id/field23"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field24"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field22"
+            app:layout_constraintTop_toTopOf="@+id/field22" />
+
+        <TextView
+            android:id="@+id/field24"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field25"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field23"
+            app:layout_constraintTop_toTopOf="@+id/field23" />
+
+        <TextView
+            android:id="@+id/field25"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/board_horizontal_margin"
+            android:layout_marginRight="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field24"
+            app:layout_constraintTop_toTopOf="@+id/field24" />
+
+        <TextView
+            android:id="@+id/field31"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/board_horizontal_margin"
+            android:layout_marginLeft="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintBottom_toTopOf="@+id/field41"
+            app:layout_constraintEnd_toStartOf="@+id/field32"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/field21"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field32"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field33"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field31"
+            app:layout_constraintTop_toTopOf="@+id/field31" />
+
+        <TextView
+            android:id="@+id/field33"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field34"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field32"
+            app:layout_constraintTop_toTopOf="@+id/field32" />
+
+        <TextView
+            android:id="@+id/field34"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field35"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field33"
+            app:layout_constraintTop_toTopOf="@+id/field33" />
+
+        <TextView
+            android:id="@+id/field35"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/board_horizontal_margin"
+            android:layout_marginRight="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field34"
+            app:layout_constraintTop_toTopOf="@+id/field34" />
+
+        <TextView
+            android:id="@+id/field41"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/board_horizontal_margin"
+            android:layout_marginLeft="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintBottom_toTopOf="@+id/field51"
+            app:layout_constraintEnd_toStartOf="@+id/field42"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/field31"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field42"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field43"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field41"
+            app:layout_constraintTop_toTopOf="@+id/field41" />
+
+        <TextView
+            android:id="@+id/field43"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field44"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field42"
+            app:layout_constraintTop_toTopOf="@+id/field42" />
+
+        <TextView
+            android:id="@+id/field44"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field45"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field43"
+            app:layout_constraintTop_toTopOf="@+id/field43" />
+
+        <TextView
+            android:id="@+id/field45"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/board_horizontal_margin"
+            android:layout_marginRight="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field44"
+            app:layout_constraintTop_toTopOf="@+id/field44" />
+
+        <TextView
+            android:id="@+id/field51"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/board_horizontal_margin"
+            android:layout_marginLeft="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintBottom_toTopOf="@+id/testTextView"
+            app:layout_constraintEnd_toStartOf="@+id/field52"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/field41"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field52"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field53"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field51"
+            app:layout_constraintTop_toTopOf="@+id/field51" />
+
+        <TextView
+            android:id="@+id/field53"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field54"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field52"
+            app:layout_constraintTop_toTopOf="@+id/field52" />
+
+        <TextView
+            android:id="@+id/field54"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toStartOf="@+id/field55"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field53"
+            app:layout_constraintTop_toTopOf="@+id/field53" />
+
+        <TextView
+            android:id="@+id/field55"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/board_horizontal_margin"
+            android:layout_marginRight="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:text="@string/testing_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field54"
+            app:layout_constraintTop_toTopOf="@+id/field54" />
+
+        <TextView
+            android:id="@+id/testTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:fontFamily="@font/roboto"
+            android:text="@string/testing_text"
+            android:textAllCaps="false"
+            android:textColor="@color/black_text_color"
+            android:textSize="14sp"
+            android:typeface="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/field53"
+            app:layout_constraintVertical_bias=".8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

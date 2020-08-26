@@ -21,5 +21,9 @@
         <item name="colorControlHighlight">@color/skip_red_color</item>
     </style>
 
+    <style name="BoardSetupTextField" parent="Widget.AppCompat.TextView">
+        <item name="colorPrimary">@color/cardview_light_background</item>
+    </style>
+
 
 </resources>

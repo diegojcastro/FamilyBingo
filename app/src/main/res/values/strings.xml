@@ -13,4 +13,6 @@
     <string name="quote_format">\"%s\"</string>
     <string name="score_format">Current Score: %d</string>
     <string name="family_bingo_logo_desc">Family Bingo logo</string>
+    <string name="testing_text">I am writing some sample testing text here.</string>
+    <string name="small_test_text">Small test text.</string>
 </resources>
