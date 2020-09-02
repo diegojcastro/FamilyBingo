@@ -20,6 +20,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            tools:ignore="ContentDescription"
             android:id="@+id/boardBackground"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -37,6 +38,7 @@
             app:layout_constraintVertical_weight="8" />
 
         <ImageView
+            tools:ignore="ContentDescription"
             android:id="@+id/bottom_transparent_placeholder"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -48,6 +50,7 @@
             app:layout_constraintVertical_weight="1" />
 
         <ImageView
+            tools:ignore="ContentDescription"
             android:id="@+id/top_transparent_placeholder"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -499,6 +502,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/field53"
             app:layout_constraintVertical_bias=".7" />
+
+        <EditText
+            android:id="@+id/editTextBingoField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/placeholder_text"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

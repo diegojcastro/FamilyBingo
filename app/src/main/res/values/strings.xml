@@ -15,4 +15,5 @@
     <string name="family_bingo_logo_desc">Family Bingo logo</string>
     <string name="testing_text">I am writing some sample testing text here.</string>
     <string name="small_test_text">Small test text.</string>
+    <string name="placeholder_text">Blank text that shouldn\'t show</string>
 </resources>

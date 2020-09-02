@@ -14,23 +14,41 @@ import com.example.familybingo.databinding.BoardSetupFragmentBinding
 
 class BoardSetupFragment : Fragment() {
 
-
+    private lateinit var binding: BoardSetupFragmentBinding
     private lateinit var viewModel: BoardSetupViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                 savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<BoardSetupFragmentBinding>(
+        binding = DataBindingUtil.inflate<BoardSetupFragmentBinding>(
             inflater, R.layout.board_setup_fragment, container, false)
         Log.i("BoardSetupFragment", "Called ViewModelProvider.get")
         viewModel = ViewModelProvider(this).get(BoardSetupViewModel::class.java)
+
+        binding.field11.setOnClickListener { editField(it) }
 
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(BoardSetupViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProvider(this).get(BoardSetupViewModel::class.java)
+
+    }
+
+    //Button click functions will go here, listeners on onCreateView I think
+    //but they'll mostly just call viewModel.buttonFuctionName to do the work there
+
+    //Button to open field to input text should all go here though
+
+    private fun editField (view : View) {
+        val editText = binding.editTextBingoField
+        editText.visibility = View.VISIBLE
+        editText.requestFocus()
+
+        // TODO automatically open keyboard
+        // TODO grey out the background
+
+
     }
 
 }
