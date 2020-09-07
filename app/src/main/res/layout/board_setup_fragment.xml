@@ -20,7 +20,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            tools:ignore="ContentDescription"
             android:id="@+id/boardBackground"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -35,10 +34,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/top_transparent_placeholder"
             app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintVertical_weight="8" />
+            app:layout_constraintVertical_weight="8"
+            tools:ignore="ContentDescription" />
 
         <ImageView
-            tools:ignore="ContentDescription"
             android:id="@+id/bottom_transparent_placeholder"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -47,10 +46,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/boardBackground"
-            app:layout_constraintVertical_weight="1" />
+            app:layout_constraintVertical_weight="1"
+            tools:ignore="ContentDescription" />
 
         <ImageView
-            tools:ignore="ContentDescription"
             android:id="@+id/top_transparent_placeholder"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -59,7 +58,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-            app:layout_constraintVertical_weight=".5" />
+            app:layout_constraintVertical_weight=".5"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/field11"
@@ -485,6 +485,18 @@
             app:layout_constraintVertical_bias=".5"
             app:layout_constraintVertical_weight="1" />
 
+        <ImageView
+            android:id="@+id/blur_background_imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/bingoboard_editview_blur_background"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
         <TextView
             android:id="@+id/testTextView"
             android:layout_width="wrap_content"
@@ -507,14 +519,49 @@
             android:id="@+id/editTextBingoField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine"
             android:text="@string/placeholder_text"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".3"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/editFieldButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="@string/edit_button"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/doneEditingFieldButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextBingoField"
+            app:layout_constraintVertical_bias=".1"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/doneEditingFieldButton"
+            style="@style/GoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/done_button"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/editFieldButton"
+            app:layout_constraintTop_toTopOf="@+id/editFieldButton"
+            tools:visibility="visible" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -8,6 +8,7 @@
     <string name="new_game_button">New Game</string>
     <string name="load_button">Load Game</string>
     <string name="edit_button">Edit</string>
+    <string name="done_button">Done</string>
     <string name="end_game">End game</string>
     <string name="confirm_button">Confirm</string>
     <string name="quote_format">\"%s\"</string>

@@ -17,4 +17,5 @@
     <color name="boardSetupTextField_background">#B39ED5</color>
     <color name="boardSetupTextField_highlight">#B47FF3</color>
     <color name="boardSetupBorder">#42193C</color>
+    <color name="semitransparent_blur">#80000000</color>"
 </resources>
