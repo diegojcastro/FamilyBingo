@@ -1,6 +1,9 @@
 package com.example.familybingo.screens.game
 
 import android.util.Log
+import android.view.View
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class BoardSetupViewModel : ViewModel() {
@@ -10,6 +13,21 @@ class BoardSetupViewModel : ViewModel() {
         val location: Int,
         val correct: Boolean,
         val missed: Boolean)
+
+    // Set up MutableLiveData containers that will update on init block
+    // The current _word
+    private val _boardEntries = MutableLiveData<MutableList<BoardEntry>>()
+    val boardEntries: LiveData<MutableList<BoardEntry>>
+        get() = _boardEntries
+
+    private val _editFieldVisible = MutableLiveData<Int>()
+    val editFieldVisible: LiveData<Int>
+        get() = _editFieldVisible
+
+    private val _currentEditField = MutableLiveData<Int>()
+    val currentEditField: LiveData<Int>
+        get() = _currentEditField
+
 
     // Make a board with the default entries
     private val bingoBoard: MutableList<BoardEntry> = mutableListOf(
@@ -69,6 +87,8 @@ class BoardSetupViewModel : ViewModel() {
     //Delete this later
     init {
         Log.i("BoardSetupViewModel", "Board Setup ViewModel created!")
+        _boardEntries.value = bingoBoard
+        _editFieldVisible.value = View.GONE
     }
 
     override fun onCleared() {
@@ -76,12 +96,25 @@ class BoardSetupViewModel : ViewModel() {
         Log.i("BoardSetupViewModel", "BoardSetupViewModel destroyed!")
     }
 
+    fun showEditField(index: Int) {
+        _currentEditField.value = index
+        _editFieldVisible.value = View.VISIBLE
+        Log.i("BoardSetupViewModel", "ViewModel should have made edit popup visible")
+    }
+
+
     fun editTextEntry(index : Int, newText : String) {
         if (index in 0..24) {
             bingoBoard[index].text = newText
-            Log.i("BoardSetupViewModel", "Changed text in index $index")
+            Log.i("BoardSetupViewModel", "Changed text in index $index to $newText")
         }
+        _editFieldVisible.value = View.GONE
     }
+
+    // TODO Make sure the text is updating properly after editTextEntry fires.
+    // Is it updating on the BoardEntries array?
+    // Why is it not updating real-time on the views?
+    // TODO check android tutorial for livedata and observers
 
 
 }
