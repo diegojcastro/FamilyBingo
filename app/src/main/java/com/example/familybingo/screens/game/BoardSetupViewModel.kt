@@ -2,11 +2,44 @@ package com.example.familybingo.screens.game
 
 import android.util.Log
 import android.view.View
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.familybingo.BR
 
 class BoardSetupViewModel : ViewModel() {
+
+    var mObserver = Observer()
+
+    fun getObserver(): Observer? {
+        return mObserver
+    }
+
+    fun tryToGetObserver(): Observer {
+        return mObserver
+    }
+
+    class Observer : BaseObservable() {
+        private var fieldText = ""
+
+        @Bindable
+        fun getFieldText(): String {
+            return fieldText
+        }
+
+        fun setFieldText(myNewText : String) {
+            if(fieldText != myNewText) {
+                fieldText = myNewText
+                notifyPropertyChanged(BR.fieldText)
+            }
+
+
+        }
+
+    }
+
 
     data class BoardEntry(
         var text: String,
@@ -27,6 +60,7 @@ class BoardSetupViewModel : ViewModel() {
     private val _currentEditField = MutableLiveData<Int>()
     val currentEditField: LiveData<Int>
         get() = _currentEditField
+
 
 
     // Make a board with the default entries
@@ -99,22 +133,26 @@ class BoardSetupViewModel : ViewModel() {
     fun showEditField(index: Int) {
         _currentEditField.value = index
         _editFieldVisible.value = View.VISIBLE
+        //_editFieldText.value = bingoBoard[index].text
+        mObserver.setFieldText(bingoBoard[index].text)
         Log.i("BoardSetupViewModel", "ViewModel should have made edit popup visible")
     }
 
 
     fun editTextEntry(index : Int, newText : String) {
         if (index in 0..24) {
+            Log.i("BoardSetupViewModel", "mObserver field text is "+mObserver.getFieldText())
+            Log.i("BoardSetupViewModel", "Original text on field "+index.toString()+" is "+bingoBoard[index].text+" and I'm trying to set it to "+newText)
             bingoBoard[index].text = newText
             Log.i("BoardSetupViewModel", "Changed text in index $index to $newText")
+            _boardEntries.value = bingoBoard
+            // Added this line to see if LiveData updates now
         }
         _editFieldVisible.value = View.GONE
     }
 
-    // TODO Make sure the text is updating properly after editTextEntry fires.
-    // Is it updating on the BoardEntries array?
-    // Why is it not updating real-time on the views?
-    // TODO check android tutorial for livedata and observers
+    // TODO make keyboard disappear after editTextEntry
+
 
 
 }
