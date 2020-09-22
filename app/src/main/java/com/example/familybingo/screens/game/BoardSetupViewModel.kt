@@ -152,6 +152,9 @@ class BoardSetupViewModel : ViewModel() {
     }
 
     // TODO make keyboard disappear after editTextEntry
+    // TODO add database and DAO stuff
+    // TODO add viewmodelfactory for boardsetupviewmodel
+    // TODO add game (where you check the boxes) viewmodel + viewmodelfactory + fragment
 
 
 
