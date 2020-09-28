@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/boardSetupFragment"
-        android:name="com.example.familybingo.screens.game.BoardSetupFragment"
+        android:name="com.example.familybingo.screens.setup.BoardSetupFragment"
         android:label="board_setup_fragment"
         tools:layout="@layout/board_setup_fragment" />
 </navigation>

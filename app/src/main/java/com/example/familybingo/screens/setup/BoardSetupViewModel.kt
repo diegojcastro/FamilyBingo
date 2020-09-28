@@ -1,15 +1,19 @@
-package com.example.familybingo.screens.game
+package com.example.familybingo.screens.setup
 
+import android.app.Application
 import android.util.Log
 import android.view.View
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.familybingo.BR
+import com.example.familybingo.database.BingoDatabaseDao
 
-class BoardSetupViewModel : ViewModel() {
+class BoardSetupViewModel(
+    val database: BingoDatabaseDao,
+    application: Application) : AndroidViewModel(application)  {
 
     var mObserver = Observer()
 
@@ -152,8 +156,7 @@ class BoardSetupViewModel : ViewModel() {
     }
 
     // TODO make keyboard disappear after editTextEntry
-    // TODO add database and DAO stuff
-    // TODO add viewmodelfactory for boardsetupviewmodel
+    // TODO Coroutines step in Coroutines and Room 6.2 android tutorial
     // TODO add game (where you check the boxes) viewmodel + viewmodelfactory + fragment
 
 
