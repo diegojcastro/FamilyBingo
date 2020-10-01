@@ -157,6 +157,7 @@ class BoardSetupViewModel(
 
     // TODO make keyboard disappear after editTextEntry
     // TODO Coroutines step in Coroutines and Room 6.2 android tutorial
+    // TODO from above, I'm on Step 2 after modifying gradle
     // TODO add game (where you check the boxes) viewmodel + viewmodelfactory + fragment
 
 
