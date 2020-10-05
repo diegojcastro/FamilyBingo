@@ -33,7 +33,8 @@ class BoardSetupFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         // Reference to data source
         val dataSource = BingoDatabase.getInstance(application).bingoDatabaseDao
-        val viewModelFactory = BoardsetupViewModelFactory(dataSource, application)
+        // TODO create the proper parent name here by getting it from arguments?
+        val viewModelFactory = BoardsetupViewModelFactory(dataSource, application, BoardSetupFragmentArgs.fromBundle(requireArguments()).boardTitle)
         viewModel = ViewModelProvider(this, viewModelFactory).get(BoardSetupViewModel::class.java)
 
         // Gives access to the ViewModel data for the binding object

@@ -17,5 +17,10 @@
         android:id="@+id/boardSetupFragment"
         android:name="com.example.familybingo.screens.setup.BoardSetupFragment"
         android:label="board_setup_fragment"
-        tools:layout="@layout/board_setup_fragment" />
+        tools:layout="@layout/board_setup_fragment" >
+        <argument
+            android:name="boardTitle"
+            app:argType="string"
+            android:defaultValue="NewBoard01" />
+    </fragment>
 </navigation>

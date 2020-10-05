@@ -7,8 +7,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!-- Text styles -->
+    <style name="BoardTitleText">
+
+    </style>
+
     <!-- Button Styles -->
     <style name="GoButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@color/ok_green_color</item>
         <item name="colorButtonNormal">@color/ok_green_color</item>
         <item name="colorControlHighlight">@color/selected_green_color</item>
         <item name="android:textColor">@color/white_text_color</item>

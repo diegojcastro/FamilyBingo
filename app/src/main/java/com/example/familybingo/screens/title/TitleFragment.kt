@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.familybingo.R
 import com.example.familybingo.databinding.FragmentTitleBinding
 import kotlinx.android.synthetic.main.new_game_dialog.view.*
@@ -37,12 +38,20 @@ class TitleFragment : Fragment() {
                 .setTitle("New Game Title")
             val mAlertDialog = mBuilder.show()
 
+            // This later lets me use the title as an argument I think
+            val action = TitleFragmentDirections.actionTitleFragmentToBoardSetupFragment()
+
             mDialogView.dialogConfirm.setOnClickListener {
                 mAlertDialog.dismiss()
                 val argTextGameTitle = mDialogView.newGameTitle.text.toString()
-                myNavC.navigate(R.id.action_titleFragment_to_boardSetupFragment)
+                action.boardTitle = argTextGameTitle
+                myNavC.navigate(action)
+
+                //This was old before I created the val action = TitleFragmentDirections (...) line
+                //myNavC.navigate(R.id.action_titleFragment_to_boardSetupFragment)
 
             }
+
             mDialogView.dialogCancel.setOnClickListener {
                 mAlertDialog.dismiss()
             }
@@ -51,7 +60,6 @@ class TitleFragment : Fragment() {
 
         return binding.root
     }
-
 
 
 
