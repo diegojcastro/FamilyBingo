@@ -15,6 +15,9 @@ class BoardSetupViewModel(
     val database: BingoDatabaseDao,
     application: Application) : AndroidViewModel(application)  {
 
+    // This observer stuff was necessary for two-way binding of sorts
+    // Where the view model value for a text field updates as I change
+    // the edit text in the UI fragment.
     var mObserver = Observer()
 
     fun getObserver(): Observer? {

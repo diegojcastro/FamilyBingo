@@ -494,18 +494,6 @@
             app:layout_constraintVertical_bias=".5"
             app:layout_constraintVertical_weight="1" />
 
-        <ImageView
-            android:id="@+id/blur_background_imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/bingoboard_editview_blur_background"
-            android:visibility="@{boardSetupViewModel.editFieldVisible}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
         <TextView
             android:id="@+id/testTextView"
             android:layout_width="wrap_content"
@@ -523,6 +511,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/field53"
             app:layout_constraintVertical_bias=".7" />
+
+
+        <ImageView
+            android:id="@+id/blur_background_imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/bingoboard_editview_blur_background"
+            android:visibility="@{boardSetupViewModel.editFieldVisible}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+
 
         <EditText
             android:id="@+id/editTextBingoField"

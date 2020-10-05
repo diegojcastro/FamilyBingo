@@ -17,4 +17,7 @@
     <string name="testing_text">I am writing some sample testing text here.</string>
     <string name="small_test_text">Small test text.</string>
     <string name="placeholder_text">Blank text that shouldn\'t show</string>
+    <string name="new_game_title">Give your board a name!</string>
+    <string name="confirmButton">Confirm</string>
+    <string name="cancelButton">Cancel</string>
 </resources>
