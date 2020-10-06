@@ -15,11 +15,8 @@ data class BingoField (
     @ColumnInfo(name = "location_index")
     var location: Byte = 0,     // convert to Int if Byte is problematic
 
-    @ColumnInfo(name = "marked_correct")
-    var correct: Boolean = false,
-
-    @ColumnInfo(name = "marked_missed")
-    var missed: Boolean = false,
+    @ColumnInfo(name = "marking")
+    var marking: Byte = 0,     // Switched to this from two booleans for correct/missed
 
     @ColumnInfo(name = "parent_board")
     var parentBoardName: String = "placeholderParent"
