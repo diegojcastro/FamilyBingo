@@ -51,8 +51,10 @@ class BoardSetupViewModel(
  //   private val allEntries = database.getAllFields()
  //   private var allEntriesNoLiveData = database.getAllFieldsNotLive()
 
-    private var oneEntry = MutableLiveData<BingoField?>()
-    private var allEntries = MutableLiveData<List<BingoField>?>()
+    private val oneEntry = MutableLiveData<BingoField?>()
+    private val allEntries = MutableLiveData<List<BingoField>?>()
+
+
 
     init {
         initializeOneEntry()
@@ -65,20 +67,45 @@ class BoardSetupViewModel(
         }
     }
 
+    // These directly talk to the database, so must be private suspend fun
+    // DATABASE 1
     private suspend fun getLatest(): BingoField? {
         val latest = database.getLastEntry()
         return latest
     }
-
+    // DATABASE 2
     // new fun to mimic the one above
     private suspend fun getListOfEntries(): List<BingoField>? {
         val bingoList = database.getAllFieldsNotLive()
         return bingoList
     }
+    // DATABASE 3
+    // New attempt to read at index, following examples above
+    private suspend fun getEntryAtIndex(parent: String, index: Byte): BingoField? {
+        val thisEntry = database.getEntryAtIndex(parent, index)
+        return thisEntry
+    }
+    // DATABASE 4
+    // Hopefully will use this to initialize from database rather than hard-coded values.
+    private suspend fun getEntriesFromParent(): List<BingoField>? {
+        val entries = database.getFromParent(boardTitle)
+        return entries
+    }
+    // GENERIC DATABASE FUNCTIONS
+    private suspend fun insert(field: BingoField) {
+        database.insert(field)
+    }
+    private suspend fun update(field: BingoField) {
+        database.update(field)
+    }
+    suspend fun clear() {
+        database.clearEverything()
+    }
 
     fun onSecondButton() {
         viewModelScope.launch {
             val newField = BingoField()
+            newField.parentBoardName = boardTitle
             insert(newField)
             oneEntry.value = getLatest()
             val startText = oneEntry.value?.text
@@ -87,11 +114,8 @@ class BoardSetupViewModel(
 
         }
     }
+    // Database Insert initially went here
 
-
-    private suspend fun insert(field: BingoField) {
-        database.insert(field)
-    }
 
     fun onThirdButton() {
         viewModelScope.launch {
@@ -104,10 +128,8 @@ class BoardSetupViewModel(
             update(oldField)
         }
     }
+    // Database update initially went here
 
-    private suspend fun update(field: BingoField) {
-        database.update(field)
-    }
 
 
     fun onClearAll() {
@@ -116,10 +138,8 @@ class BoardSetupViewModel(
             oneEntry.value = null
         }
     }
+    // Database clearEverything initially went here
 
-    suspend fun clear() {
-        database.clearEverything()
-    }
 
 
 
@@ -134,6 +154,22 @@ class BoardSetupViewModel(
             Log.i("BoardSetupViewModel", "allEntries is of size = $size")
             Log.i("BoardSetupViewModel", "The highest element in allEntries has fieldID = $info and location = $locInfo")
             Log.i("BoardSetupViewModel", "The lowest element in allEntries has fieldID = $info2")
+        }
+    }
+
+    fun checkThisBoardSizeOnDB() {
+        viewModelScope.launch {
+            allEntries.value = getEntriesFromParent()
+            val size = allEntries.value?.size
+            val sizeNum = size.toString().toInt()
+            val info = allEntries.value?.get(0)?.fieldID
+            val info2 = allEntries.value?.get(sizeNum-1)?.fieldID
+            val locInfo = allEntries.value?.get(0)?.location
+            val parentInfo = allEntries.value?.get(0)?.parentBoardName
+            Log.i("BoardSetupViewModel", "allEntries is of size = $size")
+            Log.i("BoardSetupViewModel", "The highest element in allEntries has fieldID = $info and location = $locInfo")
+            Log.i("BoardSetupViewModel", "The lowest element in allEntries has fieldID = $info2")
+            Log.i("BoardSetupViewModel", "The parent board is thought to be = $parentInfo")
         }
     }
 
@@ -156,6 +192,10 @@ class BoardSetupViewModel(
         get() = _currentEditField
 
 
+    // Make a board with the default entries - NEW with BingoField instead of BoardEntry
+    private val newBingoBoard: MutableList<BingoField> = mutableListOf(
+
+    )
 
     // Make a board with the default entries
     private val bingoBoard: MutableList<BoardEntry> = mutableListOf(
@@ -181,7 +221,7 @@ class BoardSetupViewModel(
             location = 25, correct = false, missed = false),
         BoardEntry(text = "Check DB size",
             location = 31, correct = false, missed = false),
-        BoardEntry(text = "Entry 32 is going to be longer so I can test with a longer string, yep",
+        BoardEntry(text = "Test specific test entry diegoTest",
             location = 32, correct = false, missed = false),
         BoardEntry(text = "Hello",
             location = 33, correct = false, missed = false),
@@ -189,7 +229,7 @@ class BoardSetupViewModel(
             location = 34, correct = false, missed = false),
         BoardEntry(text = "Two",
             location = 35, correct = false, missed = false),
-        BoardEntry(text = "Repeat entries",
+        BoardEntry(text = "Check the size of THIS BingoBoard in Database.",
             location = 41, correct = false, missed = false),
         BoardEntry(text = "One",
             location = 42, correct = false, missed = false),
@@ -216,7 +256,7 @@ class BoardSetupViewModel(
     init {
         //this bit is from trying to swap to the Database BingoField rather than BoardEntry
         //initializeBingoFields()
-        //createBoardOnLoad()
+        createBoardOnLoad()
 
 
 
@@ -231,22 +271,18 @@ class BoardSetupViewModel(
         }
     }
 
-    // Possibly change the return type to return LiveData<List<BingoField>> instead
-    // Originally had private suspend fun, I got rid of suspend
-    private fun getEntriesFromParent(): List<BingoField>? {
-        val entries = database.getFromParent(boardTitle)
-        val entriesList = entries.value
-        return entriesList
-    }
+
+
 
     private fun createBoardOnLoad() {
         viewModelScope.launch {
             for (i in 0..24) {
-                val newBingoField = BingoField()
-                newBingoField.parentBoardName = boardTitle
-                newBingoField.location = i.toByte()
-                newBingoField.text = "Index: $i -- replace me!"
+                val indexedText = "Index: ${convertIndexToLocation(i)} -- replace me!"
+                val newBingoField = BingoField(indexedText, convertIndexToLocation(i), 0, boardTitle)
                 insert(newBingoField)
+                oneEntry.value = getLatest()
+                val startText = oneEntry.value?.text
+                Log.i("BoardSetupViewModel", "Inserted new field, index: ${oneEntry.value?.fieldID}, text: $startText.")
             }
 
             bingoEntries.value = getEntriesFromParent()
@@ -310,10 +346,13 @@ class BoardSetupViewModel(
 
 
 
-    // TODO Initialize entries with the proper parent
+    // TODO make ViewModel variables for holding the database data, make UI from those.
     // TODO From LOAD GAME, let us load the bingo board editor, or load into the gameplay, our choice.
     // TODO link the UI with the actual database BingoField entries, not the placeholder BoardEntry
     // TODO If null check on initial allEntries, construct 25 BingoFields with proper locations+parents
+    // ^^ Did the second part, haven't done null check on allEntries. Possibly not doing that,
+    // if the null check is happening before the new board gets created by comparing existing names in
+    // the database. A separate database for board titles?
     fun debugReadEntry() {
         val lastEntry = oneEntry.value
         Log.i("BoardSetupViewModel", "Last entry text is ${lastEntry?.text}.")
@@ -322,10 +361,28 @@ class BoardSetupViewModel(
         Log.i("BoardSetupViewModel", "Last entry parent is ${lastEntry?.parentBoardName}.")
     }
 
+    // This woked. Tested and read properly.
+    fun debugReadEntryAtIndex() {
+        viewModelScope.launch {
+            Log.i("BoardSetupViewModel", "Attempting to read DiegoTest entry loc 11.")
+            oneEntry.value = getEntryAtIndex("diegoTest", 11)
+            val myEntry = oneEntry.value
+            Log.i("BoardSetupViewModel", "Test entry text is ${myEntry?.text}.")
+            Log.i("BoardSetupViewModel", "Test entry ID is ${myEntry?.fieldID}.")
+            Log.i("BoardSetupViewModel", "Test entry location is ${myEntry?.location}.")
+            Log.i("BoardSetupViewModel", "Test entry parent is ${myEntry?.parentBoardName}.")
+        }
+    }
+
     // TODO make keyboard disappear after editTextEntry
-    // TODO Coroutines step in Coroutines and Room 6.2 android tutorial
     // TODO add game (where you check the boxes) viewmodel + viewmodelfactory + fragment
 
+    private fun convertIndexToLocation(index: Int): Byte {
+        val locX = index / 5 + 1
+        val locY = index % 5 + 1
+        val loc = (locX*10 + locY).toByte()
+        return loc
+    }
 
 
 }

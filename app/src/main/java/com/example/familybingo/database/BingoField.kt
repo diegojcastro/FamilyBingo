@@ -6,9 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "all_bingo_fields_table")
 data class BingoField (
-    @PrimaryKey(autoGenerate = true)
-    var fieldID: Long = 0L,
-
     @ColumnInfo(name = "field_text")
     var text: String = "Your entry text goes here.",
 
@@ -21,3 +18,7 @@ data class BingoField (
     @ColumnInfo(name = "parent_board")
     var parentBoardName: String = "placeholderParent"
 )
+{
+    @PrimaryKey(autoGenerate = true)
+    var fieldID: Long = 0L
+}

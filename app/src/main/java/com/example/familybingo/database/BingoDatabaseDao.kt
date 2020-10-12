@@ -21,7 +21,7 @@ interface BingoDatabaseDao {
     suspend fun removeBoard(key: String)
 
     @Query("SELECT * from all_bingo_fields_table WHERE parent_board = :key ORDER BY location_index")
-    fun getFromParent(key: String): LiveData<List<BingoField>>
+    suspend fun getFromParent(key: String): List<BingoField>?
 
     @Query("SELECT * FROM all_bingo_fields_table ORDER BY fieldID DESC LIMIT 1")
     suspend fun getLastEntry(): BingoField?
