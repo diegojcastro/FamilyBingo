@@ -46,9 +46,13 @@ class BoardSetupViewModel(
 
     private var bingoEntries = MutableLiveData<List<BingoField>>()
 
-    private val allEntries = database.getAllFields()
+ //   THIS DOESN'T WORK. I'm leaving it here as reference to
+ //   NOT DO THIS THING in the future.
+ //   private val allEntries = database.getAllFields()
+ //   private var allEntriesNoLiveData = database.getAllFieldsNotLive()
 
     private var oneEntry = MutableLiveData<BingoField?>()
+    private var allEntries = MutableLiveData<List<BingoField>?>()
 
     init {
         initializeOneEntry()
@@ -57,13 +61,19 @@ class BoardSetupViewModel(
     private fun initializeOneEntry() {
         viewModelScope.launch {
             oneEntry.value = getLatest()
+            allEntries.value = getListOfEntries()   //new part
         }
     }
 
     private suspend fun getLatest(): BingoField? {
         val latest = database.getLastEntry()
         return latest
+    }
 
+    // new fun to mimic the one above
+    private suspend fun getListOfEntries(): List<BingoField>? {
+        val bingoList = database.getAllFieldsNotLive()
+        return bingoList
     }
 
     fun onSecondButton() {
@@ -71,7 +81,9 @@ class BoardSetupViewModel(
             val newField = BingoField()
             insert(newField)
             oneEntry.value = getLatest()
+            val startText = oneEntry.value?.text
             Log.i("BoardSetupViewModel", "Inserted new field, index: ${oneEntry.value?.fieldID}.")
+            Log.i("BoardSetupViewModel", "Starting text on ${oneEntry.value?.fieldID} field is $startText.")
 
         }
     }
@@ -84,9 +96,10 @@ class BoardSetupViewModel(
     fun onThirdButton() {
         viewModelScope.launch {
             val oldField = oneEntry.value ?: return@launch
-            oldField.text = "Complete."
+//            oldField.location = 7
+//            oldField.text = "Complete, location set to 7"
             Log.i("BoardSetupViewModel", "Last entry ID is ${oldField.fieldID}.")
-            Log.i("BoardSetupViewModel", "Last entry text is ${oldField.text}.")
+            Log.i("BoardSetupViewModel", "Last entry text is '${oldField.text}'.")
 
             update(oldField)
         }
@@ -108,19 +121,20 @@ class BoardSetupViewModel(
         database.clearEverything()
     }
 
-    val allFieldsID = ""
 
-    fun appendAllIDs() {
 
-    }
-
-    // TODO My current problem: This keeps printing size = null
-    // I need to figure out why getAllFields() is not giving a proper list to allEntries2
     fun checkDatabaseSize() {
-        val allEntries2 = database.getAllFields()
-        val size = allEntries2.value
-        Log.i("BoardSetupViewModel", "allEntries is of size = $size")
-
+        viewModelScope.launch {
+            allEntries.value = getListOfEntries()
+            val size = allEntries.value?.size
+            val sizeNum = size.toString().toInt()
+            val info = allEntries.value?.get(0)?.fieldID
+            val info2 = allEntries.value?.get(sizeNum-1)?.fieldID
+            val locInfo = allEntries.value?.get(0)?.location
+            Log.i("BoardSetupViewModel", "allEntries is of size = $size")
+            Log.i("BoardSetupViewModel", "The highest element in allEntries has fieldID = $info and location = $locInfo")
+            Log.i("BoardSetupViewModel", "The lowest element in allEntries has fieldID = $info2")
+        }
     }
 
     data class BoardEntry(
@@ -294,16 +308,22 @@ class BoardSetupViewModel(
     }
 
 
+
+
+    // TODO Initialize entries with the proper parent
+    // TODO From LOAD GAME, let us load the bingo board editor, or load into the gameplay, our choice.
+    // TODO link the UI with the actual database BingoField entries, not the placeholder BoardEntry
+    // TODO If null check on initial allEntries, construct 25 BingoFields with proper locations+parents
     fun debugReadEntry() {
-        val lastEntry = BingoField()
+        val lastEntry = oneEntry.value
         Log.i("BoardSetupViewModel", "Last entry text is ${lastEntry?.text}.")
         Log.i("BoardSetupViewModel", "Last entry ID is ${lastEntry?.fieldID}.")
         Log.i("BoardSetupViewModel", "Last entry location is ${lastEntry?.location}.")
+        Log.i("BoardSetupViewModel", "Last entry parent is ${lastEntry?.parentBoardName}.")
     }
 
     // TODO make keyboard disappear after editTextEntry
     // TODO Coroutines step in Coroutines and Room 6.2 android tutorial
-    // TODO from above, I'm on Step 2 after modifying gradle
     // TODO add game (where you check the boxes) viewmodel + viewmodelfactory + fragment
 
 

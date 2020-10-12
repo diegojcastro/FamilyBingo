@@ -20,6 +20,4 @@ data class BingoField (
 
     @ColumnInfo(name = "parent_board")
     var parentBoardName: String = "placeholderParent"
-
-
 )

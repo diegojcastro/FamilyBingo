@@ -26,8 +26,15 @@ interface BingoDatabaseDao {
     @Query("SELECT * FROM all_bingo_fields_table ORDER BY fieldID DESC LIMIT 1")
     suspend fun getLastEntry(): BingoField?
 
+    @Query("SELECT * from all_bingo_fields_table WHERE parent_board = :key AND location_index = :iKey")
+    suspend fun getEntryAtIndex(key: String, iKey: Byte): BingoField?
+
     @Query("SELECT * FROM all_bingo_fields_table ORDER BY fieldID DESC")
     fun getAllFields(): LiveData<List<BingoField>>
+
+    // This one is a test to see if it's LiveData that's messing things up
+    @Query("SELECT * FROM all_bingo_fields_table ORDER BY fieldID DESC")
+    suspend fun getAllFieldsNotLive(): List<BingoField>?
 
     @Query("DELETE FROM all_bingo_fields_table")
     suspend fun clearEverything()
