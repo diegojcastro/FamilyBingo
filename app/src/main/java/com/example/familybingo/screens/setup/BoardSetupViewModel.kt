@@ -44,13 +44,9 @@ class BoardSetupViewModel(
         }
     }
 
-    private var bingoEntries = MutableLiveData<List<BingoField>>()
+  //  private var bingoEntries = MutableLiveData<List<BingoField>>()
 
- //   THIS DOESN'T WORK. I'm leaving it here as reference to
- //   NOT DO THIS THING in the future.
- //   private val allEntries = database.getAllFields()
- //   private var allEntriesNoLiveData = database.getAllFieldsNotLive()
-
+    private val tempEntry = MutableLiveData<BingoField?>()
     private val oneEntry = MutableLiveData<BingoField?>()
     private val allEntries = MutableLiveData<List<BingoField>?>()
 
@@ -62,6 +58,7 @@ class BoardSetupViewModel(
 
     private fun initializeOneEntry() {
         viewModelScope.launch {
+            tempEntry.value = getLatest()
             oneEntry.value = getLatest()
             allEntries.value = getListOfEntries()   //new part
         }
@@ -193,9 +190,14 @@ class BoardSetupViewModel(
 
 
     // Make a board with the default entries - NEW with BingoField instead of BoardEntry
-    private val newBingoBoard: MutableList<BingoField> = mutableListOf(
+    private val _newBingoBoard = MutableLiveData<List<BingoField>>()
+    val newBingoBoard: LiveData<List<BingoField>>
+        get() = _newBingoBoard
 
+    private var bingoBoard2: MutableList<BingoField> = mutableListOf(
+        BingoField("Placeholder",11,0,"placeholderParent")
     )
+
 
     // Make a board with the default entries
     private val bingoBoard: MutableList<BoardEntry> = mutableListOf(
@@ -255,22 +257,12 @@ class BoardSetupViewModel(
     //Delete this later
     init {
         //this bit is from trying to swap to the Database BingoField rather than BoardEntry
-        //initializeBingoFields()
         createBoardOnLoad()
-
-
 
         Log.i("BoardSetupViewModel", "Board Setup ViewModel created!")
         _boardEntries.value = bingoBoard
         _editFieldVisible.value = View.GONE
     }
-
-    private fun initializeBingoFields() {
-        viewModelScope.launch {
-            bingoEntries.value = getEntriesFromParent()
-        }
-    }
-
 
 
 
@@ -285,11 +277,16 @@ class BoardSetupViewModel(
                 Log.i("BoardSetupViewModel", "Inserted new field, index: ${oneEntry.value?.fieldID}, text: $startText.")
             }
 
-            bingoEntries.value = getEntriesFromParent()
+            _newBingoBoard.value = getEntriesFromParent()
+  //          bingoEntries.value = getEntriesFromParent()
+            bingoBoard2 = _newBingoBoard.value as MutableList<BingoField>
+            //_newBingoBoard.value = bingoBoard2
             // This is where tonight.value = getTonightFromDatabase() on the tutorial
             // For me it would be something like bingoEntries = ...
+            // DONE. Leaving comment for reference.
         }
     }
+
 
 
 
@@ -303,31 +300,33 @@ class BoardSetupViewModel(
         _currentEditField.value = index
         _editFieldVisible.value = View.VISIBLE
         //_editFieldText.value = bingoBoard[index].text
-        mObserver.setFieldText(bingoBoard[index].text)
+        mObserver.setFieldText(bingoBoard2[index].text)
         Log.i("BoardSetupViewModel", "ViewModel should have made edit popup visible")
     }
 
 
+    // TODO fix the fact that the last line is not updating in Database. UI changes, but DB doesn't
+    // Possibly to do with Dispatchers.IO rather than viewModelScope?
     fun editTextEntry(index : Int, newText : String) {
         if (index in 0..24) {
             Log.i("BoardSetupViewModel", "mObserver field text is "+mObserver.getFieldText())
-            Log.i("BoardSetupViewModel", "Original text on field "+index.toString()+" is "+bingoBoard[index].text+" and I'm trying to set it to "+newText)
-            bingoBoard[index].text = newText
-            Log.i("BoardSetupViewModel", "Changed text in index $index to $newText")
-            _boardEntries.value = bingoBoard
+            Log.i("BoardSetupViewModel", "Original text on field "+index.toString()+" is "+bingoBoard2[index].text+" and I'm trying to set it to "+newText)
+            bingoBoard2[index].text = newText
+            Log.i("BoardSetupViewModel", "Changed text in field $index to "+bingoBoard2[index].text)
+            _newBingoBoard.value = bingoBoard2
+            Log.i("BoardSetupViewModel", "Equivalency test. NewText = $newText | and _newBingoBoard.value[index].text = "+ _newBingoBoard.value!![index].text)
+            viewModelScope.launch {
+                tempEntry.value = getEntryAtIndex(boardTitle, convertIndexToLocation(index)) ?: return@launch
+                val testingLocOfEntry = tempEntry.value!!.location
+                update(tempEntry.value!!)
+                oneEntry.value = getEntryAtIndex(boardTitle, testingLocOfEntry)
+                Log.i("BoardSetupViewModel", "After updating, the new entry text on DB is "+oneEntry.value!!.text)
+            }
             // Added this line to see if LiveData updates now
         }
         _editFieldVisible.value = View.GONE
     }
 
-    fun debugShowDatabaseContents() {
-        Log.i("BoardSetupViewModel", "Attempting database debug.")
-        val x = bingoEntries.value?.size
-        Log.i("BoardSetupViewModel", "bingoEntries is of size $x")
-        for (x in 0..24) {
-            Log.i("BoardSetupViewModel", "Database index $x has value "+bingoEntries.value?.get(x)?.text)
-        }
-    }
 
     fun debugMakeEntry() {
         viewModelScope.launch {
@@ -361,7 +360,7 @@ class BoardSetupViewModel(
         Log.i("BoardSetupViewModel", "Last entry parent is ${lastEntry?.parentBoardName}.")
     }
 
-    // This woked. Tested and read properly.
+    // This worked. Tested and read properly.
     fun debugReadEntryAtIndex() {
         viewModelScope.launch {
             Log.i("BoardSetupViewModel", "Attempting to read DiegoTest entry loc 11.")
