@@ -306,7 +306,6 @@ class BoardSetupViewModel(
 
 
     // TODO fix the fact that the last line is not updating in Database. UI changes, but DB doesn't
-    // Possibly to do with Dispatchers.IO rather than viewModelScope?
     fun editTextEntry(index : Int, newText : String) {
         if (index in 0..24) {
             Log.i("BoardSetupViewModel", "mObserver field text is "+mObserver.getFieldText())
@@ -318,8 +317,13 @@ class BoardSetupViewModel(
             viewModelScope.launch {
                 tempEntry.value = getEntryAtIndex(boardTitle, convertIndexToLocation(index)) ?: return@launch
                 val testingLocOfEntry = tempEntry.value!!.location
+                val tempEntryID = tempEntry.value!!.fieldID
+                Log.i("BoardSetupViewModel", "Before calling update, fieldID=$tempEntryID, fieldLocation=$testingLocOfEntry")
+                tempEntry.value!!.text = newText
                 update(tempEntry.value!!)
+                //trying to change from testingLocOfEntry to convertIndexToLocation(index)
                 oneEntry.value = getEntryAtIndex(boardTitle, testingLocOfEntry)
+
                 Log.i("BoardSetupViewModel", "After updating, the new entry text on DB is "+oneEntry.value!!.text)
             }
             // Added this line to see if LiveData updates now
