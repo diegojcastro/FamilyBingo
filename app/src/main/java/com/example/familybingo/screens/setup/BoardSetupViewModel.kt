@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.familybingo.BR
 import com.example.familybingo.database.BingoDatabaseDao
 import com.example.familybingo.database.BingoField
+import com.example.familybingo.database.BoardHolder
 import kotlinx.coroutines.launch
 
 class BoardSetupViewModel(
@@ -88,6 +89,11 @@ class BoardSetupViewModel(
         val entries = database.getFromParent(boardTitle)
         return entries
     }
+    // DATABASE 5 HOLDER
+    private suspend fun getHolderByTitle(title: String): BoardHolder? {
+        val holder = database.selectHolder(title)
+        return holder
+    }
     // GENERIC DATABASE FUNCTIONS
     private suspend fun insert(field: BingoField) {
         database.insert(field)
@@ -95,8 +101,18 @@ class BoardSetupViewModel(
     private suspend fun update(field: BingoField) {
         database.update(field)
     }
+    // GENERIC DATABASE FUNCTIONS for HOLDER
+    private suspend fun insert(title: BoardHolder) {
+        database.insert(title)
+    }
+    private suspend fun update(title: BoardHolder) {
+        database.update(title)
+    }
     suspend fun clear() {
         database.clearEverything()
+        database.clearAllHolders()
+        Log.i("BoardSetupViewModel", "Nuked it. Everything deleted from DB Fields+Holders.")
+
     }
 
     fun onSecondButton() {
@@ -170,17 +186,7 @@ class BoardSetupViewModel(
         }
     }
 
-    data class BoardEntry(
-        var text: String,
-        val location: Int,
-        val correct: Boolean,
-        val missed: Boolean)
-    //The _board stuff is backing properties from 5.02 on LifeData in Kotlin tutorial
-    // Set up MutableLiveData containers that will update on init block
-    // The current _word
-    private val _boardEntries = MutableLiveData<MutableList<BoardEntry>>()
-    val boardEntries: LiveData<MutableList<BoardEntry>>
-        get() = _boardEntries
+
     private val _editFieldVisible = MutableLiveData<Int>()
     val editFieldVisible: LiveData<Int>
         get() = _editFieldVisible
@@ -199,68 +205,12 @@ class BoardSetupViewModel(
     )
 
 
-    // Make a board with the default entries
-    private val bingoBoard: MutableList<BoardEntry> = mutableListOf(
-        BoardEntry(text = "This one prints everything",
-            location = 11, correct = false, missed = false),
-        BoardEntry(text = "Make an entry",
-            location = 12, correct = false, missed = false),
-        BoardEntry(text = "Get the last entry and print?",
-            location = 13, correct = false, missed = false),
-        BoardEntry(text = "Zeke is late",
-            location = 14, correct = false, missed = false),
-        BoardEntry(text = "CLEAR EVERYTHING. Nuke it.",
-            location = 15, correct = false, missed = false),
-        BoardEntry(text = "Sleep track START",
-            location = 21, correct = false, missed = false),
-        BoardEntry(text = "Sleep track END",
-            location = 22, correct = false, missed = false),
-        BoardEntry(text = "Nothing of interest",
-            location = 23, correct = false, missed = false),
-        BoardEntry(text = "Matt is misunderstood",
-            location = 24, correct = false, missed = false),
-        BoardEntry(text = "Colleen says hiiiii",
-            location = 25, correct = false, missed = false),
-        BoardEntry(text = "Check DB size",
-            location = 31, correct = false, missed = false),
-        BoardEntry(text = "Test specific test entry diegoTest",
-            location = 32, correct = false, missed = false),
-        BoardEntry(text = "Hello",
-            location = 33, correct = false, missed = false),
-        BoardEntry(text = "One",
-            location = 34, correct = false, missed = false),
-        BoardEntry(text = "Two",
-            location = 35, correct = false, missed = false),
-        BoardEntry(text = "Check the size of THIS BingoBoard in Database.",
-            location = 41, correct = false, missed = false),
-        BoardEntry(text = "One",
-            location = 42, correct = false, missed = false),
-        BoardEntry(text = "Two",
-            location = 43, correct = false, missed = false),
-        BoardEntry(text = "One",
-            location = 44, correct = false, missed = false),
-        BoardEntry(text = "Two",
-            location = 45, correct = false, missed = false),
-        BoardEntry(text = "Three",
-            location = 51, correct = false, missed = false),
-        BoardEntry(text = "Hello",
-            location = 52, correct = false, missed = false),
-        BoardEntry(text = "Hello",
-            location = 53, correct = false, missed = false),
-        BoardEntry(text = "Hello",
-            location = 54, correct = false, missed = false),
-        BoardEntry(text = "Hello",
-            location = 55, correct = false, missed = false)
-    )
-
-
     //Delete this later
     init {
         //this bit is from trying to swap to the Database BingoField rather than BoardEntry
         createBoardOnLoad()
 
         Log.i("BoardSetupViewModel", "Board Setup ViewModel created!")
-        _boardEntries.value = bingoBoard
         _editFieldVisible.value = View.GONE
     }
 
@@ -276,6 +226,12 @@ class BoardSetupViewModel(
                 val startText = oneEntry.value?.text
                 Log.i("BoardSetupViewModel", "Inserted new field, index: ${oneEntry.value?.fieldID}, text: $startText.")
             }
+            val newDate = System.currentTimeMillis()
+            val newBoardHolder = BoardHolder(boardTitle, newDate, "Setup", 0)
+            insert(newBoardHolder)
+            val latestHolder = getHolderByTitle(boardTitle)
+            Log.i("BoardSetupViewModel", "Inserted new BoardHolder, ID: ${latestHolder?.boardID}, title: ${latestHolder?.title}")
+
 
             _newBingoBoard.value = getEntriesFromParent()
   //          bingoEntries.value = getEntriesFromParent()
@@ -305,7 +261,6 @@ class BoardSetupViewModel(
     }
 
 
-    // TODO fix the fact that the last line is not updating in Database. UI changes, but DB doesn't
     fun editTextEntry(index : Int, newText : String) {
         if (index in 0..24) {
             Log.i("BoardSetupViewModel", "mObserver field text is "+mObserver.getFieldText())
@@ -349,9 +304,7 @@ class BoardSetupViewModel(
 
 
 
-    // TODO make ViewModel variables for holding the database data, make UI from those.
     // TODO From LOAD GAME, let us load the bingo board editor, or load into the gameplay, our choice.
-    // TODO link the UI with the actual database BingoField entries, not the placeholder BoardEntry
     // TODO If null check on initial allEntries, construct 25 BingoFields with proper locations+parents
     // ^^ Did the second part, haven't done null check on allEntries. Possibly not doing that,
     // if the null check is happening before the new board gets created by comparing existing names in

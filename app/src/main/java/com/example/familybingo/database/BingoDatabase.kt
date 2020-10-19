@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [BingoField::class], version = 1, exportSchema = false)
+@Database(entities = [BingoField::class, BoardHolder::class], version = 2, exportSchema = false)
 abstract class BingoDatabase : RoomDatabase() {
 
     abstract val bingoDatabaseDao: BingoDatabaseDao

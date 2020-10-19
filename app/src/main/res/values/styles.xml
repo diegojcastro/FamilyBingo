@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -10,6 +10,9 @@
 
     <!-- Text styles -->
     <style name="BoardTitleText">
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/board_vertical_margin"
+        android:background="#FFFFFF"
 
     </style>
 

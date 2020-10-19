@@ -40,4 +40,22 @@ interface BingoDatabaseDao {
     suspend fun clearEverything()
 
 
+    // I could make a separate DAO for BoardHolder, but I'm just using this one for now.
+    @Insert
+    suspend fun insert(title: BoardHolder)
+
+    @Update
+    suspend fun update(title: BoardHolder)
+
+    @Query("DELETE FROM all_parent_board_names_table WHERE board_title = :key")
+    suspend fun removeHolder(key: String)
+
+    @Query("SELECT * FROM all_parent_board_names_table WHERE board_title = :key ORDER BY board_title DESC LIMIT 1")
+    suspend fun selectHolder(key: String): BoardHolder?
+
+    @Query("DELETE FROM all_parent_board_names_table")
+    suspend fun clearAllHolders()
+
+    @Query("SELECT * FROM all_parent_board_names_table ORDER BY boardID DESC")
+    suspend fun getAllBoards(): List<BoardHolder>?
 }

@@ -19,9 +19,12 @@ class BoardSetupFragment : Fragment() {
     private lateinit var binding: BoardSetupFragmentBinding
     private lateinit var viewModel: BoardSetupViewModel
 
+    // binding declaration was originally:
+    // binding = DataBindingUtil.inflate<BoardSetupFragmentBinding>
+    // removed the explicit <BoardSetupFragmentBinding>, leaving note for reference.
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                 savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate<BoardSetupFragmentBinding>(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.board_setup_fragment, container, false)
         Log.i("BoardSetupFragment", "Called ViewModelProvider.get")
 
@@ -33,8 +36,8 @@ class BoardSetupFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         // Reference to data source
         val dataSource = BingoDatabase.getInstance(application).bingoDatabaseDao
-        // TODO create the proper parent name here by getting it from arguments?
-        val viewModelFactory = BoardsetupViewModelFactory(dataSource, application, BoardSetupFragmentArgs.fromBundle(requireArguments()).boardTitle)
+
+        val viewModelFactory = BoardSetupViewModelFactory(dataSource, application, BoardSetupFragmentArgs.fromBundle(requireArguments()).boardTitle)
         viewModel = ViewModelProvider(this, viewModelFactory).get(BoardSetupViewModel::class.java)
 
         // Gives access to the ViewModel data for the binding object

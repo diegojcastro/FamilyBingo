@@ -20,4 +20,8 @@
     <string name="new_game_title">Give your board a name!</string>
     <string name="confirmButton">Confirm</string>
     <string name="cancelButton">Cancel</string>
+    <string name="load_game">Load Game</string>
+    <string name="list_item_last_opened">Last opened:</string>
+    <string name="list_item_status_title">Status:</string>
+    <string name="list_item_score_title">Score:</string>
 </resources>

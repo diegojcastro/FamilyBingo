@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/list_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/board_vertical_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/black_text_color"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Dinner at Rob and Amanda's Cozy Home" />
+
+    <TextView
+        android:id="@+id/list_last_opened"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/board_vertical_margin"
+        android:text="@string/list_item_last_opened"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/list_score"
+        app:layout_constraintTop_toBottomOf="@+id/list_item_title" />
+
+    <TextView
+        android:id="@+id/list_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/board_vertical_margin"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/list_last_opened"
+        app:layout_constraintStart_toStartOf="@+id/list_last_opened"
+        app:layout_constraintTop_toBottomOf="@+id/list_last_opened"
+        tools:text="01/01/2020" />
+
+    <TextView
+        android:id="@+id/list_status_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/board_vertical_margin"
+        android:text="@string/list_item_status_title"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_item_title" />
+
+    <TextView
+        android:id="@+id/list_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        tools:text="Setup"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/board_vertical_margin"
+        app:layout_constraintStart_toEndOf="@id/list_status_title"
+        app:layout_constraintTop_toTopOf="@id/list_status_title" />
+
+    <TextView
+        android:id="@+id/list_score_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/board_vertical_margin"
+        android:text="@string/list_item_score_title"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_status_title" />
+
+    <TextView
+        android:id="@+id/list_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        tools:text="0"
+        android:paddingHorizontal="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/board_vertical_margin"
+        app:layout_constraintStart_toEndOf="@id/list_status_title"
+        app:layout_constraintTop_toTopOf="@id/list_score_title" />
+
+    <ImageView
+        android:id="@+id/list_trash_image"
+        android:layout_width="33dp"
+        android:layout_height="31dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/list_date"
+        app:layout_constraintTop_toTopOf="@+id/list_last_opened"
+        app:srcCompat="@drawable/trash_icon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

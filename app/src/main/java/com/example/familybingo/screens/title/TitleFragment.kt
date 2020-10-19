@@ -57,6 +57,13 @@ class TitleFragment : Fragment() {
             }
         }
 
+        binding.loadButton.setOnClickListener { view : View ->
+
+            val myNavC = view.findNavController()
+            val action = TitleFragmentDirections.actionTitleFragmentToLoadGameFragment()
+            myNavC.navigate(action)
+        }
+
 
         return binding.root
     }

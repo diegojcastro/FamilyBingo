@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_titleFragment_to_boardSetupFragment"
             app:destination="@id/boardSetupFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_loadGameFragment"
+            app:destination="@id/loadGameFragment" />
     </fragment>
     <fragment
         android:id="@+id/boardSetupFragment"
@@ -23,4 +26,9 @@
             app:argType="string"
             android:defaultValue="NewBoard01" />
     </fragment>
+    <fragment
+        android:id="@+id/loadGameFragment"
+        android:name="com.example.familybingo.screens.load.LoadGameFragment"
+        android:label="LoadGameFragment"
+        tools:layout="@layout/load_game_fragment"/>
 </navigation>

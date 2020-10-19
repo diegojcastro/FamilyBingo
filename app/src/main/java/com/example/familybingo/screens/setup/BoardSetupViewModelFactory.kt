@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.familybingo.database.BingoDatabaseDao
 
-class BoardsetupViewModelFactory(
+class BoardSetupViewModelFactory(
     private val dataSource: BingoDatabaseDao,
     private val application: Application,
     private val myBoardTitle: String) : ViewModelProvider.Factory {
