@@ -1,13 +1,17 @@
 package com.example.familybingo.screens.load
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.familybingo.R
 import com.example.familybingo.database.BoardHolder
+import java.text.SimpleDateFormat
+import java.util.*
 
 class BoardHolderAdapter : RecyclerView.Adapter<BoardHolderAdapter.ViewHolder>() {
 
@@ -26,6 +30,7 @@ class BoardHolderAdapter : RecyclerView.Adapter<BoardHolderAdapter.ViewHolder>()
         val lastPlayed: TextView = itemView.findViewById(R.id.list_last_opened)
         val date: TextView = itemView.findViewById(R.id.list_date)
         val trashImage: ImageView = itemView.findViewById(R.id.list_trash_image)
+
     }
 
 
@@ -34,6 +39,24 @@ class BoardHolderAdapter : RecyclerView.Adapter<BoardHolderAdapter.ViewHolder>()
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
         holder.title.text = item.title
+        holder.status.text = item.playStatus
+        if (item.playStatus == "Setup")
+            holder.score.text = "N/A"
+        else
+            holder.score.text = item.score.toString()
+        //holder.date.text = item.lastOpened.toString()
+        val time = Date(item.lastOpened)
+        val format = SimpleDateFormat("yyyy.MM.dd HH:mm")
+        holder.date.text = format.format(time)
+
+        // Trying to navigate to BoardSetup with the right title.
+        holder.title.setOnClickListener {view : View ->
+            val myNavC = view.findNavController()
+            val action = LoadGameFragmentDirections.actionLoadGameFragmentToBoardSetupFragment()
+            action.boardTitle = holder.title.text.toString()
+            Log.i("LoadGameViewModel", "Clicked the title that says ${holder.title.text}")
+            myNavC.navigate(action)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

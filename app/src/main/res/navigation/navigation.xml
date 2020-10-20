@@ -30,5 +30,9 @@
         android:id="@+id/loadGameFragment"
         android:name="com.example.familybingo.screens.load.LoadGameFragment"
         android:label="LoadGameFragment"
-        tools:layout="@layout/load_game_fragment"/>
+        tools:layout="@layout/load_game_fragment">
+        <action
+            android:id="@+id/action_loadGameFragment_to_boardSetupFragment"
+            app:destination="@id/boardSetupFragment" />
+    </fragment>
 </navigation>

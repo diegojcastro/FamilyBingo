@@ -14,7 +14,7 @@
     <string name="quote_format">\"%s\"</string>
     <string name="score_format">Current Score: %d</string>
     <string name="family_bingo_logo_desc">Family Bingo logo</string>
-    <string name="testing_text">I am writing some sample testing text here.</string>
+    <string name="testing_text">Done setting up: let\'s play!</string>
     <string name="small_test_text">Small test text.</string>
     <string name="placeholder_text">Blank text that shouldn\'t show</string>
     <string name="new_game_title">Give your board a name!</string>
@@ -24,4 +24,8 @@
     <string name="list_item_last_opened">Last opened:</string>
     <string name="list_item_status_title">Status:</string>
     <string name="list_item_score_title">Score:</string>
+    <string name="debug_button_1_DBsize">DBsize</string>
+    <string name="debug_button_2_thisDBsize">ThisDBsize</string>
+    <string name="debug_button_3_nukeDeleteEverything">DELETE ALL</string>
+    <string name="debug_button_3_detailsOfLastEntry">Details of last entry</string>
 </resources>

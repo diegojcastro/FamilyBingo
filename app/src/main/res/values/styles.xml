@@ -10,9 +10,6 @@
 
     <!-- Text styles -->
     <style name="BoardTitleText">
-        android:paddingHorizontal="@dimen/horizontal_margin"
-        android:paddingVertical="@dimen/board_vertical_margin"
-        android:background="#FFFFFF"
 
     </style>
 
@@ -33,6 +30,11 @@
 
     <style name="BoardSetupTextField" parent="Widget.AppCompat.TextView">
         <item name="colorPrimary">@color/cardview_light_background</item>
+    </style>
+
+    <style name="DebugButton" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@color/selected_red_color</item>
+        <item name="android:textColor">@color/white_text_color</item>
     </style>
 
 

@@ -61,7 +61,7 @@ class BoardSetupViewModel(
         viewModelScope.launch {
             tempEntry.value = getLatest()
             oneEntry.value = getLatest()
-            allEntries.value = getListOfEntries()   //new part
+            allEntries.value = getEntriesFromParent()   //new part
         }
     }
 
@@ -207,8 +207,32 @@ class BoardSetupViewModel(
 
     //Delete this later
     init {
-        //this bit is from trying to swap to the Database BingoField rather than BoardEntry
-        createBoardOnLoad()
+        viewModelScope.launch {
+            //this bit is from trying to swap to the Database BingoField rather than BoardEntry
+            allEntries.value = getEntriesFromParent()
+
+            if (allEntries.value?.isEmpty()!!) {
+                Log.i("BoardSetupViewModel",
+                    "allEntries.value is seemingly: ${allEntries.value}, should be empty"
+                )
+                createBoardOnLoad()
+            }
+            else {
+                Log.i("BoardSetupViewModel",
+                    "allEntries.value is seemingly: ${allEntries.value}, should be size 25"
+                )
+                _newBingoBoard.value = allEntries.value
+                bingoBoard2 = _newBingoBoard.value as MutableList<BingoField>
+
+                val holder = getHolderByTitle(boardTitle)
+                if (holder != null) {
+                    holder.lastOpened = System.currentTimeMillis()
+                    update(holder)
+                }
+
+
+            }
+        }
 
         Log.i("BoardSetupViewModel", "Board Setup ViewModel created!")
         _editFieldVisible.value = View.GONE
