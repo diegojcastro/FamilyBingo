@@ -1,13 +1,546 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".screens.game.GameFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="gameViewModel"
+            type="com.example.familybingo.screens.game.GameViewModel" />
 
-</FrameLayout>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/title_top_margin"
+            android:gravity="center"
+            android:paddingLeft="@dimen/board_horizontal_margin"
+            android:paddingRight="@dimen/board_horizontal_margin"
+            android:text="@{gameViewModel.boardTitle}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="This is just for debugging." />
+
+        <ImageView
+            android:id="@+id/boardBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/board_horizontal_margin"
+            android:layout_marginLeft="@dimen/board_horizontal_margin"
+            android:layout_marginEnd="@dimen/board_horizontal_margin"
+            android:layout_marginRight="@dimen/board_horizontal_margin"
+            android:src="@drawable/bingoboard_container_background"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_transparent_placeholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_transparent_placeholder"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_weight="8"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/bottom_transparent_placeholder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/transparent_block"
+            app:layout_constraintBottom_toTopOf="@+id/testTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/boardBackground"
+            app:layout_constraintVertical_weight="1"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/top_transparent_placeholder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/transparent_block"
+            app:layout_constraintBottom_toTopOf="@+id/boardBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+            app:layout_constraintVertical_weight=".5"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/field11"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/board_horizontal_margin"
+            android:layout_marginLeft="@dimen/board_horizontal_margin"
+            android:layout_marginTop="@dimen/board_vertical_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(0)}"
+            android:text="@{gameViewModel.bingoBoard[0].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field21"
+            app:layout_constraintEnd_toStartOf="@+id/field12"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="@+id/boardBackground"
+            app:layout_constraintTop_toTopOf="@id/boardBackground"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field12"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/board_vertical_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(1)}"
+            android:text="@{gameViewModel.bingoBoard[1].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field22"
+            app:layout_constraintEnd_toStartOf="@+id/field13"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field11"
+            app:layout_constraintTop_toTopOf="@id/boardBackground"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field13"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/board_vertical_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(2)}"
+            android:text="@{gameViewModel.bingoBoard[2].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field23"
+            app:layout_constraintEnd_toStartOf="@+id/field14"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field12"
+            app:layout_constraintTop_toTopOf="@id/boardBackground"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field14"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/board_vertical_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(3)}"
+            android:text="@{gameViewModel.bingoBoard[3].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field24"
+            app:layout_constraintEnd_toStartOf="@+id/field15"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field13"
+            app:layout_constraintTop_toTopOf="@id/boardBackground"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field15"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="@dimen/board_horizontal_margin"
+            android:layout_marginRight="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(4)}"
+            android:text="@{gameViewModel.bingoBoard[4].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field25"
+            app:layout_constraintEnd_toEndOf="@id/boardBackground"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field14"
+            app:layout_constraintTop_toTopOf="@id/boardBackground"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field21"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/board_horizontal_margin"
+            android:layout_marginLeft="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(5)}"
+            android:text="@{gameViewModel.bingoBoard[5].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field31"
+            app:layout_constraintEnd_toStartOf="@+id/field22"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="@id/boardBackground"
+            app:layout_constraintTop_toBottomOf="@+id/field11"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field22"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(6)}"
+            android:text="@{gameViewModel.bingoBoard[6].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field32"
+            app:layout_constraintEnd_toStartOf="@+id/field23"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field21"
+            app:layout_constraintTop_toBottomOf="@+id/field12"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field23"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(7)}"
+            android:text="@{gameViewModel.bingoBoard[7].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field33"
+            app:layout_constraintEnd_toStartOf="@+id/field24"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field22"
+            app:layout_constraintTop_toBottomOf="@+id/field13"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field24"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(8)}"
+            android:text="@{gameViewModel.bingoBoard[8].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field34"
+            app:layout_constraintEnd_toStartOf="@+id/field25"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field23"
+            app:layout_constraintTop_toBottomOf="@+id/field14"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field25"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/board_horizontal_margin"
+            android:layout_marginRight="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(9)}"
+            android:text="@{gameViewModel.bingoBoard[9].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field35"
+            app:layout_constraintEnd_toEndOf="@id/boardBackground"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field24"
+            app:layout_constraintTop_toBottomOf="@+id/field15"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field31"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/board_horizontal_margin"
+            android:layout_marginLeft="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(10)}"
+            android:text="@{gameViewModel.bingoBoard[10].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field41"
+            app:layout_constraintEnd_toStartOf="@+id/field32"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="@id/boardBackground"
+            app:layout_constraintTop_toBottomOf="@+id/field21"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field32"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(11)}"
+            android:text="@{gameViewModel.bingoBoard[11].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field42"
+            app:layout_constraintEnd_toStartOf="@+id/field33"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field31"
+            app:layout_constraintTop_toBottomOf="@+id/field22"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field33"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(12)}"
+            android:text="@{gameViewModel.bingoBoard[12].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field43"
+            app:layout_constraintEnd_toStartOf="@+id/field34"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field32"
+            app:layout_constraintTop_toBottomOf="@+id/field23"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field34"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(13)}"
+            android:text="@{gameViewModel.bingoBoard[13].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field44"
+            app:layout_constraintEnd_toStartOf="@+id/field35"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field33"
+            app:layout_constraintTop_toBottomOf="@+id/field24"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field35"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/board_horizontal_margin"
+            android:layout_marginRight="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(14)}"
+            android:text="@{gameViewModel.bingoBoard[14].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field45"
+            app:layout_constraintEnd_toEndOf="@id/boardBackground"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field34"
+            app:layout_constraintTop_toBottomOf="@+id/field25"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field41"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/board_horizontal_margin"
+            android:layout_marginLeft="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(15)}"
+            android:text="@{gameViewModel.bingoBoard[15].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field51"
+            app:layout_constraintEnd_toStartOf="@+id/field42"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="@id/boardBackground"
+            app:layout_constraintTop_toBottomOf="@+id/field31"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field42"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(16)}"
+            android:text="@{gameViewModel.bingoBoard[16].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field52"
+            app:layout_constraintEnd_toStartOf="@+id/field43"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field41"
+            app:layout_constraintTop_toBottomOf="@+id/field32"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field43"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(17)}"
+            android:text="@{gameViewModel.bingoBoard[17].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field53"
+            app:layout_constraintEnd_toStartOf="@+id/field44"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field42"
+            app:layout_constraintTop_toBottomOf="@+id/field33"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field44"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(18)}"
+            android:text="@{gameViewModel.bingoBoard[18].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field54"
+            app:layout_constraintEnd_toStartOf="@+id/field45"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field43"
+            app:layout_constraintTop_toBottomOf="@+id/field34"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field45"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/board_horizontal_margin"
+            android:layout_marginRight="@dimen/board_horizontal_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(19)}"
+            android:text="@{gameViewModel.bingoBoard[19].text}"
+            app:layout_constraintBottom_toTopOf="@+id/field55"
+            app:layout_constraintEnd_toEndOf="@id/boardBackground"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field44"
+            app:layout_constraintTop_toBottomOf="@+id/field35"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field51"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/board_horizontal_margin"
+            android:layout_marginLeft="@dimen/board_horizontal_margin"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(20)}"
+            android:text="@{gameViewModel.bingoBoard[20].text}"
+            app:layout_constraintBottom_toBottomOf="@id/boardBackground"
+            app:layout_constraintEnd_toStartOf="@+id/field52"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="@id/boardBackground"
+            app:layout_constraintTop_toBottomOf="@+id/field41"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field52"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/board_vertical_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(21)}"
+            android:text="@{gameViewModel.bingoBoard[21].text}"
+            app:layout_constraintBottom_toBottomOf="@+id/boardBackground"
+            app:layout_constraintEnd_toStartOf="@+id/field53"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field51"
+            app:layout_constraintTop_toBottomOf="@+id/field42"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field53"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/board_vertical_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(22)}"
+            android:text="@{gameViewModel.bingoBoard[22].text}"
+            app:layout_constraintBottom_toBottomOf="@+id/boardBackground"
+            app:layout_constraintEnd_toStartOf="@+id/field54"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field52"
+            app:layout_constraintTop_toBottomOf="@+id/field43"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field54"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/board_vertical_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(23)}"
+            android:text="@{gameViewModel.bingoBoard[23].text}"
+            app:layout_constraintBottom_toBottomOf="@+id/boardBackground"
+            app:layout_constraintEnd_toStartOf="@+id/field55"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field53"
+            app:layout_constraintTop_toBottomOf="@+id/field44"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/field55"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/board_horizontal_margin"
+            android:layout_marginRight="@dimen/board_horizontal_margin"
+            android:layout_marginBottom="@dimen/board_vertical_margin"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:onClick="@{ () -> gameViewModel.openGameDialog(24)}"
+            android:text="@{gameViewModel.bingoBoard[24].text}"
+            app:layout_constraintBottom_toBottomOf="@+id/boardBackground"
+            app:layout_constraintEnd_toEndOf="@id/boardBackground"
+            app:layout_constraintHorizontal_bias=".5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/field54"
+            app:layout_constraintTop_toBottomOf="@+id/field45"
+            app:layout_constraintVertical_bias=".5"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/testTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bingoboard_fieldbackground_bordered"
+            android:fontFamily="@font/roboto"
+            android:text="@string/game_button_test_text"
+            android:textAllCaps="false"
+            android:textColor="@color/black_text_color"
+            android:textSize="14sp"
+            android:typeface="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/boardBackground"
+            app:layout_constraintVertical_bias=".7" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

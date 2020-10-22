@@ -25,6 +25,9 @@
             android:name="boardTitle"
             app:argType="string"
             android:defaultValue="NewBoard01" />
+        <action
+            android:id="@+id/action_boardSetupFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
     </fragment>
     <fragment
         android:id="@+id/loadGameFragment"
@@ -34,5 +37,18 @@
         <action
             android:id="@+id/action_loadGameFragment_to_boardSetupFragment"
             app:destination="@id/boardSetupFragment" />
+        <action
+            android:id="@+id/action_loadGameFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.familybingo.screens.game.GameFragment"
+        android:label="game_fragment"
+        tools:layout="@layout/game_fragment" >
+        <argument
+            android:name="boardTitle"
+            app:argType="string"
+            android:defaultValue="newBoardTitle01" />
     </fragment>
 </navigation>

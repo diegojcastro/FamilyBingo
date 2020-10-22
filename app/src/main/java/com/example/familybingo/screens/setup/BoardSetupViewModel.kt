@@ -194,6 +194,10 @@ class BoardSetupViewModel(
     val currentEditField: LiveData<Int>
         get() = _currentEditField
 
+    private val _navigateToGameFragment = MutableLiveData<Boolean>()
+    val navigateToGameFragment: LiveData<Boolean>
+        get() = _navigateToGameFragment
+
 
     // Make a board with the default entries - NEW with BingoField instead of BoardEntry
     private val _newBingoBoard = MutableLiveData<List<BingoField>>()
@@ -207,6 +211,7 @@ class BoardSetupViewModel(
 
     //Delete this later
     init {
+        _navigateToGameFragment.value = false
         viewModelScope.launch {
             //this bit is from trying to swap to the Database BingoField rather than BoardEntry
             allEntries.value = getEntriesFromParent()
@@ -311,6 +316,12 @@ class BoardSetupViewModel(
     }
 
 
+    fun doneWithSetup() {
+        _navigateToGameFragment.value = true
+    }
+
+
+
     fun debugMakeEntry() {
         viewModelScope.launch {
             Log.i("BoardSetupViewModel", "Attempting to make an entry in database.")
@@ -326,13 +337,6 @@ class BoardSetupViewModel(
     }
 
 
-
-
-    // TODO From LOAD GAME, let us load the bingo board editor, or load into the gameplay, our choice.
-    // TODO If null check on initial allEntries, construct 25 BingoFields with proper locations+parents
-    // ^^ Did the second part, haven't done null check on allEntries. Possibly not doing that,
-    // if the null check is happening before the new board gets created by comparing existing names in
-    // the database. A separate database for board titles?
     fun debugReadEntry() {
         val lastEntry = oneEntry.value
         Log.i("BoardSetupViewModel", "Last entry text is ${lastEntry?.text}.")
@@ -355,7 +359,6 @@ class BoardSetupViewModel(
     }
 
     // TODO make keyboard disappear after editTextEntry
-    // TODO add game (where you check the boxes) viewmodel + viewmodelfactory + fragment
 
     private fun convertIndexToLocation(index: Int): Byte {
         val locX = index / 5 + 1

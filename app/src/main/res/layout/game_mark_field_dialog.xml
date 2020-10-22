@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/fieldText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Replace with GameViewModel"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:paddingBottom="@dimen/title_top_margin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/dialogCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancelButton"/>
+
+            <Button
+                android:id="@+id/dialogMissed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mark_field_missed"
+                android:theme="@style/MissedButton"/>
+
+            <Button
+                android:id="@+id/dialogChecked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mark_field_correct"
+                android:theme="@style/GoButton" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

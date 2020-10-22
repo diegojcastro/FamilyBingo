@@ -24,6 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/board_vertical_margin"
             android:text="@string/load_game"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

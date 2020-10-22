@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        kotlin_version = '1.3.72'
+        kotlin_version = '1.4.10'
         archLifecycleVersion = '1.1.1'
         gradleVersion = '4.0.1'
         room_version = '2.2.5'    // This was 2.0.0 but I changed it when adding room:room-ktx

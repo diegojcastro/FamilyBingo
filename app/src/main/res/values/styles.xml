@@ -22,6 +22,14 @@
         <item name="colorAccent">@color/selected_green_color</item>
     </style>
 
+    <style name="MissedButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@color/skip_red_color</item>
+        <item name="colorButtonNormal">@color/skip_red_color</item>
+        <item name="colorControlHighlight">@color/selected_red_color</item>
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="colorAccent">@color/selected_red_color</item>
+    </style>
+
     <style name="SkipButton" parent="Widget.AppCompat.Button.Colored">
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
         <item name="android:textColor">@color/grey_button_color</item>
