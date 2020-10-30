@@ -41,7 +41,9 @@ class GameViewModel(
         _markFieldDialog.value = false
         Log.i("GameViewModel", "init1 complete. SelectedFieldIndex: ${selectedFieldIndex.value}. SelectedFieldText: ${selectedFieldText.value}. MarkFieldDialog: ${markFieldDialog.value}")
 
+        // Commented out because it's explicitly written in the init block below
 //        viewModelScope.launch {
+//            Log.i("GameViewModel", "Init part 2: viewModelScope.launch started.")
 //            titleHolder.value = getBoardHolder()
 //            Log.i("GameViewModel", "Initialized titleHolder with value ${titleHolder.value}")
 //            thisBoardEntries.value = getEntries()
@@ -53,11 +55,13 @@ class GameViewModel(
     // DATABASE FUNCTIONS
     // DATABASE 1
     private suspend fun getBoardHolder() : BoardHolder? {
+        Log.i("GameViewModel", "Running database.selectHolder(boardTitle), function getBoardHolder().")
         val title = database.selectHolder(boardTitle)
         return title
     }
     // DATABASE 2
     private suspend fun getEntries() : List<BingoField>? {
+        Log.i("GameViewModel", "Running database.getFromParent(boardTitle), function getEntries().")
         val entries = database.getFromParent(boardTitle)
         return entries
     }
@@ -75,11 +79,16 @@ class GameViewModel(
 
 //    private var board : MutableList<BingoField> = mutableListOf()
 
+    // Maybe this one should go way up instead? Where the previous init block was commented out.
     init {
         initializeTitleAndData()
         viewModelScope.launch {
             Log.i("GameViewModel", "Start viewModelScope.launch on init block.")
-            // TODO it freezes after this, and never actually finishes getEntries(). Fix that.
+            titleHolder.value = getBoardHolder()
+            // If the line above freezes it, the problem is most likely the observer on GameFragment
+            val title = titleHolder.value?.title
+            Log.i("GameViewModel", "Read titleHolder correctly, title text: $title")
+
             thisBoardEntries.value = getEntries()
             val tracingError = thisBoardEntries.value
             Log.i("GameViewModel", "On second init block, I have thisBoardEntries.value set to: $tracingError")

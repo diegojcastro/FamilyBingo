@@ -45,34 +45,38 @@ class GameFragment : Fragment() {
         // Lets binding observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.markFieldDialog.observe(viewLifecycleOwner, Observer {
-            if (it == true) {
-                val mDialogView = LayoutInflater.from(this.context).inflate(R.layout.game_mark_field_dialog, null)
-                val mBuilder = AlertDialog.Builder(this.context)
-                    .setView(mDialogView)
-                    .setTitle("Mark this box!")
-                val mAlertDialog = mBuilder.show()
 
-                mDialogView.dialogCancel.setOnClickListener {
-                    mAlertDialog.dismiss()
-                }
-
-                mDialogView.dialogMissed.setOnClickListener {
-                    val i = viewModel.selectedFieldIndex.value!!
-                    viewModel.markFieldMissed(i)
-                    Log.i("GameFragment", "Marked entry $i as Missed: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
-                    mAlertDialog.dismiss()
-                }
-
-                mDialogView.dialogChecked.setOnClickListener {
-                    val i = viewModel.selectedFieldIndex.value!!
-                    viewModel.markFieldChecked(i)
-                    Log.i("GameFragment", "Marked entry $i as Checked: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
-                    mAlertDialog.dismiss()
-                }
-            }
-            viewModel.closeGameDialog()
-        })
+        // TODO this was causing a weird bug where the database readings would freeze.
+        // So fix that.
+        //Observer for markFieldDialog (to popup whether we check/miss each entry on click)
+//        viewModel.markFieldDialog.observe(viewLifecycleOwner, Observer {
+//            if (it == true) {
+//                val mDialogView = LayoutInflater.from(this.context).inflate(R.layout.game_mark_field_dialog, null)
+//                val mBuilder = AlertDialog.Builder(this.context)
+//                    .setView(mDialogView)
+//                    .setTitle("Mark this box!")
+//                val mAlertDialog = mBuilder.show()
+//
+//                mDialogView.dialogCancel.setOnClickListener {
+//                    mAlertDialog.dismiss()
+//                }
+//
+//                mDialogView.dialogMissed.setOnClickListener {
+//                    val i = viewModel.selectedFieldIndex.value!!
+//                    viewModel.markFieldMissed(i)
+//                    Log.i("GameFragment", "Marked entry $i as Missed: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
+//                    mAlertDialog.dismiss()
+//                }
+//
+//                mDialogView.dialogChecked.setOnClickListener {
+//                    val i = viewModel.selectedFieldIndex.value!!
+//                    viewModel.markFieldChecked(i)
+//                    Log.i("GameFragment", "Marked entry $i as Checked: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
+//                    mAlertDialog.dismiss()
+//                }
+//            }
+//            viewModel.closeGameDialog()
+//        })
 
 
         return binding.root
