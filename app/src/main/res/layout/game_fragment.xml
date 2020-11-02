@@ -530,6 +530,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/bingoboard_fieldbackground_bordered"
             android:fontFamily="@font/roboto"
+            android:onClick="@{ () -> gameViewModel.debugPrintEntries() }"
             android:text="@string/game_button_test_text"
             android:textAllCaps="false"
             android:textColor="@color/black_text_color"

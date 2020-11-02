@@ -52,10 +52,21 @@ class BoardHolderAdapter : RecyclerView.Adapter<BoardHolderAdapter.ViewHolder>()
         // Trying to navigate to BoardSetup with the right title.
         holder.title.setOnClickListener {view : View ->
             val myNavC = view.findNavController()
-            val action = LoadGameFragmentDirections.actionLoadGameFragmentToBoardSetupFragment()
-            action.boardTitle = holder.title.text.toString()
-            Log.i("LoadGameViewModel", "Clicked the title that says ${holder.title.text}")
-            myNavC.navigate(action)
+            when (holder.status.text) {
+                "Setup" -> {
+                    val actionToSetup = LoadGameFragmentDirections.actionLoadGameFragmentToBoardSetupFragment()
+                    actionToSetup.boardTitle = holder.title.text.toString()
+                    Log.i("LoadGameViewModel", "Clicked the title that says ${holder.title.text}, navigating to ${holder.status.text}")
+                    myNavC.navigate(actionToSetup)
+                }
+                "Playing Game" -> {
+                    val actionToGame = LoadGameFragmentDirections.actionLoadGameFragmentToGameFragment()
+                    actionToGame.boardTitle = holder.title.text.toString()
+                    Log.i("LoadGameViewModel", "Clicked the title that says ${holder.title.text}, navigating to ${holder.status.text}")
+                    myNavC.navigate(actionToGame)
+                }
+                else -> Log.i("LoadGameViewModel", "Not a suitable game state (setup / playing game)")
+            }
         }
     }
 

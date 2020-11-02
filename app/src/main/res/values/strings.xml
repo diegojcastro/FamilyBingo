@@ -28,7 +28,7 @@
     <string name="debug_button_2_thisDBsize">ThisDBsize</string>
     <string name="debug_button_3_nukeDeleteEverything">DELETE ALL</string>
     <string name="debug_button_3_detailsOfLastEntry">Details of last entry</string>
-    <string name="game_button_test_text">Game button test text</string>
+    <string name="game_button_test_text">Game button test text: DebugPrintEntries </string>
     <string name="mark_field_missed">Missed</string>
     <string name="mark_field_correct">Correct</string>
 </resources>

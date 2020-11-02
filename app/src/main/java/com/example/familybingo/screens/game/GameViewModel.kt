@@ -140,5 +140,9 @@ class GameViewModel(
         _bingoBoard.value!![index].marking = 1
     }
 
+    fun debugPrintEntries() {
+        Log.i("GameViewModel", "DebugPrintEntries function: ${_bingoBoard.value}")
+    }
+
 
 }
