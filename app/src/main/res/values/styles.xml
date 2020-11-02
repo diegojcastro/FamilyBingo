@@ -13,6 +13,24 @@
 
     </style>
 
+    <!-- TextView Styles -->
+    <style name="CheckedField" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@drawable/bingoboard_fieldbackground_checked</item>
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="colorAccent">@color/selected_green_color</item>
+    </style>
+
+    <style name="MissedField" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@drawable/bingoboard_fieldbackground_missed</item>
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="colorAccent">@color/selected_red_color</item>
+    </style>
+
+    <style name="DefaultField" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@drawable/bingoboard_fieldbackground_bordered</item>
+        <item name="android:textColor">@android:color/secondary_text_light</item>
+    </style>
+
     <!-- Button Styles -->
     <style name="GoButton" parent="Widget.AppCompat.Button.Colored">
         <item name="android:background">@color/ok_green_color</item>
