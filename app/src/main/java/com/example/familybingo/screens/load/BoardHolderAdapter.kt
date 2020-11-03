@@ -68,6 +68,8 @@ class BoardHolderAdapter : RecyclerView.Adapter<BoardHolderAdapter.ViewHolder>()
                 else -> Log.i("LoadGameViewModel", "Not a suitable game state (setup / playing game)")
             }
         }
+
+        // TODO onclicklistener for the trash icon, open delete dialog
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -1,11 +1,17 @@
 package com.example.familybingo.screens.game
 
 import android.app.Application
+import android.graphics.Color
 import android.util.Log
+import android.view.View
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.familybingo.R
 import com.example.familybingo.database.BingoDatabaseDao
 import com.example.familybingo.database.BingoField
 import com.example.familybingo.database.BoardHolder
@@ -15,6 +21,10 @@ class GameViewModel(
     val database: BingoDatabaseDao,
     application: Application,
     val boardTitle: String) : AndroidViewModel(application)  {
+
+    val BG_UNMARKED = R.drawable.bingoboard_fieldbackground_bordered
+    val BG_CHECKED = R.drawable.bingoboard_fieldbackground_checked
+    val BG_MISSED = R.drawable.bingoboard_fieldbackground_missed
 
     private val titleHolder = MutableLiveData<BoardHolder?>()
     private val thisBoardEntries = MutableLiveData<List<BingoField>?>()
@@ -26,6 +36,10 @@ class GameViewModel(
     private val _selectedFieldIndex = MutableLiveData<Int>()
     val selectedFieldIndex: LiveData<Int>
         get() = _selectedFieldIndex
+
+    private val _selectedView = MutableLiveData<TextView>()
+    val selectedView: LiveData<TextView>
+        get() = _selectedView
 
     private val _markFieldDialog = MutableLiveData<Boolean>()
     val markFieldDialog: LiveData<Boolean>
@@ -65,10 +79,19 @@ class GameViewModel(
         val entries = database.getFromParent(boardTitle)
         return entries
     }
+    // DATABASE 3
+    private suspend fun getEntryAtIndex(parent: String, index: Byte): BingoField? {
+        Log.i("GameViewModel", "Running database.getEntryAtIndex($parent, $index)")
+        val thisEntry = database.getEntryAtIndex(parent, index)
+        return thisEntry
+    }
 
     // GENERIC DATABASE FUNCTIONS
     private suspend fun update(title: BoardHolder) {
         database.update(title)
+    }
+    private suspend fun update(field: BingoField) {
+        database.update(field)
     }
 
 
@@ -123,6 +146,12 @@ class GameViewModel(
 
     }
 
+    fun openGameDialog(index: Int, view: TextView) {
+        _selectedFieldIndex.value = index
+        _selectedView.value = view
+        _markFieldDialog.value = true
+    }
+
     fun openGameDialog(index: Int) {
         _selectedFieldIndex.value = index
         _markFieldDialog.value = true
@@ -132,16 +161,79 @@ class GameViewModel(
         _markFieldDialog.value = false
     }
 
-    fun markFieldMissed(index: Int) {
-        _bingoBoard.value!![index].marking = -1
+    // Outdated, kept for reference, didn't modify field color/text.
+//    fun markFieldMissed(index: Int) {
+//        _bingoBoard.value!![index].marking = -1
+//        viewModelScope.launch {
+//            val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))
+//            Log.i("GameViewModel", "I think markedField is $markedField")
+//            if (markedField != null) {
+//                markedField.marking = -1
+//                update(markedField)
+//                Log.i("GameViewModel", "Updated field with -1 marking on DB: $markedField")
+//            }
+//        }
+//    }
+//    fun markFieldChecked(index: Int) {
+//        _bingoBoard.value!![index].marking = 1
+//        viewModelScope.launch {
+//            val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))
+//            Log.i("GameViewModel", "I think markedField is $markedField")
+//            if (markedField != null) {
+//                markedField.marking = 1
+//                update(markedField)
+//                Log.i("GameViewModel", "Updated field with 1 marking on DB: $markedField")
+//            }
+//        }
+//    }
+
+    fun markFieldMissed(index: Int, view: TextView) {
+        Log.i("GameViewModel", "My Textview looks like this: $view")
+
+        _bingoBoard.value!![index].marking = BG_MISSED
+        view.setBackgroundResource(BG_MISSED)
+        Log.i("GameViewModel", "Set background to $BG_MISSED")
+        val color = getColor(getApplication(), R.color.white_text_color)
+        view.setTextColor(color)
+
+        viewModelScope.launch {
+            val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))
+            Log.i("GameViewModel", "I think markedField is $markedField")
+            if (markedField != null) {
+                markedField.marking = BG_MISSED
+                update(markedField)
+                Log.i("GameViewModel", "Updated field with $BG_MISSED marking on DB: $markedField")
+            }
+        }
     }
 
-    fun markFieldChecked(index: Int) {
-        _bingoBoard.value!![index].marking = 1
+    fun markFieldChecked(index: Int, view: TextView) {
+        _bingoBoard.value!![index].marking = BG_CHECKED
+        view.setBackgroundResource(BG_CHECKED)
+        Log.i("GameViewModel", "Set background to $BG_CHECKED")
+        val color = getColor(getApplication(), R.color.white_text_color)
+        view.setTextColor(color)
+
+        viewModelScope.launch {
+            val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))
+            Log.i("GameViewModel", "I think markedField is $markedField")
+            if (markedField != null) {
+                markedField.marking = BG_CHECKED
+                update(markedField)
+                Log.i("GameViewModel", "Updated field with $BG_CHECKED marking on DB: $markedField")
+            }
+        }
     }
 
     fun debugPrintEntries() {
         Log.i("GameViewModel", "DebugPrintEntries function: ${_bingoBoard.value}")
+    }
+
+    private fun convertIndexToLocation(index: Int): Byte {
+        val locX = index / 5 + 1
+        val locY = index % 5 + 1
+        val loc = (locX*10 + locY).toByte()
+        return loc
     }
 
 

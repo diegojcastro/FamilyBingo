@@ -70,14 +70,14 @@ class GameFragment : Fragment() {
 
                 mDialogView.dialogMissed.setOnClickListener {
                     val i = viewModel.selectedFieldIndex.value!!
-                    viewModel.markFieldMissed(i)
+                    viewModel.markFieldMissed(i, viewModel.selectedView.value!!)
                     Log.i("GameFragment", "Marked entry $i as Missed: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
                     mAlertDialog.dismiss()
                 }
 
                 mDialogView.dialogChecked.setOnClickListener {
                     val i = viewModel.selectedFieldIndex.value!!
-                    viewModel.markFieldChecked(i)
+                    viewModel.markFieldChecked(i, viewModel.selectedView.value!!)
                     Log.i("GameFragment", "Marked entry $i as Checked: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
                     mAlertDialog.dismiss()
                 }

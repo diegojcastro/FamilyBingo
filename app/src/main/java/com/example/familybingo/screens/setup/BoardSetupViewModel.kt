@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.familybingo.BR
+import com.example.familybingo.R
 import com.example.familybingo.database.BingoDatabaseDao
 import com.example.familybingo.database.BingoField
 import com.example.familybingo.database.BoardHolder
@@ -249,7 +250,7 @@ class BoardSetupViewModel(
         viewModelScope.launch {
             for (i in 0..24) {
                 val indexedText = "Index: ${convertIndexToLocation(i)} -- replace me!"
-                val newBingoField = BingoField(indexedText, convertIndexToLocation(i), 0, boardTitle)
+                val newBingoField = BingoField(indexedText, convertIndexToLocation(i), R.drawable.bingoboard_fieldbackground_bordered, boardTitle)
                 insert(newBingoField)
                 oneEntry.value = getLatest()
                 val startText = oneEntry.value?.text

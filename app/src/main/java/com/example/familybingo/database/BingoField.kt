@@ -3,6 +3,7 @@ package com.example.familybingo.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.familybingo.R
 
 @Entity(tableName = "all_bingo_fields_table")
 data class BingoField (
@@ -13,7 +14,7 @@ data class BingoField (
     var location: Byte = 0,     // convert to Int if Byte is problematic
 
     @ColumnInfo(name = "marking")
-    var marking: Byte = 0,     // Switched to this from two booleans for correct/missed
+    var marking: Int = R.drawable.bingoboard_fieldbackground_bordered,     // was byte, switched to int
 
     @ColumnInfo(name = "parent_board")
     var parentBoardName: String = "placeholderParent"
@@ -21,4 +22,5 @@ data class BingoField (
 {
     @PrimaryKey(autoGenerate = true)
     var fieldID: Long = 0L
+
 }
