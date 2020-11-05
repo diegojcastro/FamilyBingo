@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#7e53c5</color>
     <color name="youWinDark">#35A571</color>
+    <color name="test">#6495ed</color>
     <color name="youWinBackground">#B7F8C9</color>
     <color name="gameOverBackground">#f8bbd0</color>
     <color name="ok_green_color">#6ab343</color>

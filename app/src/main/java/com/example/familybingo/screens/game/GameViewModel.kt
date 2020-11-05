@@ -1,11 +1,8 @@
 package com.example.familybingo.screens.game
 
 import android.app.Application
-import android.graphics.Color
 import android.util.Log
-import android.view.View
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -164,6 +161,7 @@ class GameViewModel(
     // Outdated, kept for reference, didn't modify field color/text.
 //    fun markFieldMissed(index: Int) {
 //        _bingoBoard.value!![index].marking = -1
+//        _bingoBoard.value = _bingoBoard.value
 //        viewModelScope.launch {
 //            val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))
 //            Log.i("GameViewModel", "I think markedField is $markedField")
@@ -176,6 +174,7 @@ class GameViewModel(
 //    }
 //    fun markFieldChecked(index: Int) {
 //        _bingoBoard.value!![index].marking = 1
+//        _bingoBoard.value = _bingoBoard.value
 //        viewModelScope.launch {
 //            val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))
 //            Log.i("GameViewModel", "I think markedField is $markedField")
@@ -191,7 +190,10 @@ class GameViewModel(
         Log.i("GameViewModel", "My Textview looks like this: $view")
 
         _bingoBoard.value!![index].marking = BG_MISSED
-        view.setBackgroundResource(BG_MISSED)
+        // Refresh LiveData on GameFragment observer
+        _bingoBoard.value = _bingoBoard.value
+        //observer on above data does the stuff below, previously hardcoded
+        //view.setBackgroundResource(BG_MISSED)
         Log.i("GameViewModel", "Set background to $BG_MISSED")
         val color = getColor(getApplication(), R.color.white_text_color)
         view.setTextColor(color)
@@ -209,7 +211,10 @@ class GameViewModel(
 
     fun markFieldChecked(index: Int, view: TextView) {
         _bingoBoard.value!![index].marking = BG_CHECKED
-        view.setBackgroundResource(BG_CHECKED)
+        // Trying to refresh LiveData on GameFragment since it has an observer
+        _bingoBoard.value = _bingoBoard.value
+        //observer on above data does the stuff below, previously hardcoded
+        //view.setBackgroundResource(BG_CHECKED)
         Log.i("GameViewModel", "Set background to $BG_CHECKED")
         val color = getColor(getApplication(), R.color.white_text_color)
         view.setTextColor(color)
