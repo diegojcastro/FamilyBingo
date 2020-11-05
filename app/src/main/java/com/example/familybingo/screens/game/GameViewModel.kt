@@ -42,6 +42,10 @@ class GameViewModel(
     val markFieldDialog: LiveData<Boolean>
         get() = _markFieldDialog
 
+    private val _gameScore = MutableLiveData<Int>()
+    val gameScore: LiveData<Int>
+        get() = _gameScore
+
 //    init {
 //        initializeTitleAndData()
 //    }
@@ -50,6 +54,7 @@ class GameViewModel(
         _selectedFieldIndex.value = 0
         _selectedFieldText.value = ""
         _markFieldDialog.value = false
+        _gameScore.value = 0
         Log.i("GameViewModel", "init1 complete. SelectedFieldIndex: ${selectedFieldIndex.value}. SelectedFieldText: ${selectedFieldText.value}. MarkFieldDialog: ${markFieldDialog.value}")
 
         // Commented out because it's explicitly written in the init block below
@@ -109,6 +114,11 @@ class GameViewModel(
             val title = titleHolder.value?.title
             Log.i("GameViewModel", "Read titleHolder correctly, title text: $title")
 
+            val score = titleHolder.value?.score
+            _gameScore.value = score
+            Log.i("GameViewModel", "Read score from titleHolder correctly, score text: $title")
+
+
             thisBoardEntries.value = getEntries()
             val tracingError = thisBoardEntries.value
             Log.i("GameViewModel", "On second init block, I have thisBoardEntries.value set to: $tracingError")
@@ -125,6 +135,10 @@ class GameViewModel(
                 )
                 _bingoBoard.value = thisBoardEntries.value
                 //           board = _bingoBoard.value as MutableList<BingoField>
+                var tempScore = 0
+                for (i in _bingoBoard.value!!) {
+                    if (i.marking == BG_CHECKED) tempScore += 1
+                }
 
                 val holder = getBoardHolder()
                 Log.i("GameViewModel", "Grabbed holder on init2, its value was originally: $holder")
@@ -132,8 +146,11 @@ class GameViewModel(
                 if (holder != null) {
                     holder.lastOpened = System.currentTimeMillis()
                     holder.playStatus = "Playing Game"
+                    holder.score = tempScore
+                    _gameScore.value = tempScore
                     update(holder)
                     Log.i("GameViewModel", "Updated holder, its value is now: $holder")
+                    titleHolder.value = holder
                 }
             }
         }
@@ -187,8 +204,11 @@ class GameViewModel(
 //    }
 
     fun markFieldMissed(index: Int, view: TextView) {
-        Log.i("GameViewModel", "My Textview looks like this: $view")
-
+        if (_bingoBoard.value!![index].marking == BG_CHECKED) {
+            var tempScore = _gameScore.value
+            tempScore = tempScore?.minus(1)
+            _gameScore.value = tempScore
+        }
         _bingoBoard.value!![index].marking = BG_MISSED
         // Refresh LiveData on GameFragment observer
         _bingoBoard.value = _bingoBoard.value
@@ -206,10 +226,18 @@ class GameViewModel(
                 update(markedField)
                 Log.i("GameViewModel", "Updated field with $BG_MISSED marking on DB: $markedField")
             }
+            titleHolder.value!!.score = _gameScore.value!!
+            update(titleHolder.value!!)
+            Log.i("GameViewModel", "Updated holder with score value of ${_gameScore.value}, holder: ${titleHolder.value}")
         }
     }
 
     fun markFieldChecked(index: Int, view: TextView) {
+        if (_bingoBoard.value!![index].marking != BG_CHECKED) {
+            var tempScore = _gameScore.value
+            tempScore = tempScore?.plus(1)
+            _gameScore.value = tempScore
+        }
         _bingoBoard.value!![index].marking = BG_CHECKED
         // Trying to refresh LiveData on GameFragment since it has an observer
         _bingoBoard.value = _bingoBoard.value
@@ -227,7 +255,37 @@ class GameViewModel(
                 update(markedField)
                 Log.i("GameViewModel", "Updated field with $BG_CHECKED marking on DB: $markedField")
             }
+            titleHolder.value!!.score = _gameScore.value!!
+            update(titleHolder.value!!)
+            Log.i("GameViewModel", "Updated holder with score value of ${_gameScore.value}, holder: ${titleHolder.value}")
+
         }
+    }
+
+    fun markFieldDefault(index: Int, view: TextView) {
+        if (_bingoBoard.value!![index].marking == BG_CHECKED) {
+            var tempScore = _gameScore.value
+            tempScore = tempScore?.minus(1)
+            _gameScore.value = tempScore
+        }
+        _bingoBoard.value!![index].marking = BG_UNMARKED
+        // Refresh LiveData on GameFragment observer
+        _bingoBoard.value = _bingoBoard.value
+        Log.i("GameViewModel", "Set background to $BG_UNMARKED")
+        viewModelScope.launch {
+            val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))
+            Log.i("GameViewModel", "I think markedField is $markedField")
+            if (markedField != null) {
+                markedField.marking = BG_UNMARKED
+                update(markedField)
+                Log.i("GameViewModel", "Updated field with $BG_UNMARKED marking on DB: $markedField")
+            }
+            titleHolder.value!!.score = _gameScore.value!!
+            update(titleHolder.value!!)
+            Log.i("GameViewModel", "Updated holder with score value of ${_gameScore.value}, holder: ${titleHolder.value}")
+
+        }
+
     }
 
     fun debugPrintEntries() {

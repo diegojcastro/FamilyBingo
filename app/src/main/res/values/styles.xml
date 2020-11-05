@@ -48,6 +48,14 @@
         <item name="colorAccent">@color/selected_red_color</item>
     </style>
 
+    <style name="UnmarkedButton" parent="Widget.AppCompat.Button.Colored" >
+        <item name="android:background">@color/boardSetupTextField_background</item>
+        <item name="colorButtonNormal">@color/boardSetupTextField_background</item>
+        <item name="colorControlHighlight">@color/boardSetupTextField_highlight</item>
+        <item name="android:textColor">@color/grey_text_color</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="SkipButton" parent="Widget.AppCompat.Button.Colored">
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
         <item name="android:textColor">@color/grey_button_color</item>

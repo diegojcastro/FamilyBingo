@@ -67,6 +67,13 @@ class GameFragment : Fragment() {
                     mAlertDialog.dismiss()
                 }
 
+                mDialogView.dialogUnmarked.setOnClickListener {
+                    val i = viewModel.selectedFieldIndex.value!!
+                    viewModel.markFieldDefault(i, viewModel.selectedView.value!!)
+                    Log.i("GameFragment", "Marked entry $i as Unmarked: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
+                    mAlertDialog.dismiss()
+                }
+
                 mDialogView.dialogMissed.setOnClickListener {
                     val i = viewModel.selectedFieldIndex.value!!
                     // if I need a reference to the clicked view, use this one:

@@ -31,4 +31,6 @@
     <string name="game_button_test_text">Game button test text: DebugPrintEntries </string>
     <string name="mark_field_missed">Missed</string>
     <string name="mark_field_correct">Correct</string>
+    <string name="score_game_label_text">Score:\u0020</string>
+    <string name="game_mark_dialog_unmarked">Normal</string>
 </resources>
