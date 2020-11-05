@@ -1,5 +1,6 @@
 package com.example.familybingo.screens.load
 
+import android.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.familybingo.R
 import com.example.familybingo.database.BoardHolder
+import kotlinx.android.synthetic.main.game_mark_field_dialog.view.*
+import kotlinx.android.synthetic.main.load_delete_dialog.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -69,7 +72,27 @@ class BoardHolderAdapter : RecyclerView.Adapter<BoardHolderAdapter.ViewHolder>()
             }
         }
 
-        // TODO onclicklistener for the trash icon, open delete dialog
+        holder.trashImage.setOnClickListener {view : View ->
+            Log.i("LoadGameViewModel", "Trash image clicked on ${holder.title.text}")
+            val mDialogView = LayoutInflater.from(holder.trashImage.context).inflate(R.layout.load_delete_dialog, null)
+            val mBuilder = AlertDialog.Builder(holder.trashImage.context)
+                .setView(mDialogView)
+                .setTitle("Confirm deletion of this game:")
+            val mAlertDialog = mBuilder.show()
+
+            // TODO make it display the right title text somewhere here
+            // TODO also find a way to make it talk to the DB and delete the entries
+
+            mDialogView.deleteDialogCancel.setOnClickListener {
+                mAlertDialog.dismiss()
+            }
+
+            mDialogView.deleteDialogDelete.setOnClickListener {
+                Log.i("LoadGameViewModel", "Clicked the delete button. Currently does nothing.")
+
+            }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

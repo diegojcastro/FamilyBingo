@@ -63,6 +63,8 @@ class GameFragment : Fragment() {
                     .setTitle("Mark this box!")
                 val mAlertDialog = mBuilder.show()
 
+                // TODO Make it display the right text on the game mark dialog
+
                 mDialogView.dialogCancel.setOnClickListener {
                     mAlertDialog.dismiss()
                 }

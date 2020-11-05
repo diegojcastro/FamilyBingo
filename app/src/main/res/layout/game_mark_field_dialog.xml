@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/title_top_margin"
-            android:text="Replace with GameViewModel"
+            android:text="@string/debug_dialog_temp_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <LinearLayout

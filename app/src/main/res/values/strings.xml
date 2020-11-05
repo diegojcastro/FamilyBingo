@@ -33,4 +33,6 @@
     <string name="mark_field_correct">Correct</string>
     <string name="score_game_label_text">Score:\u0020</string>
     <string name="game_mark_dialog_unmarked">Normal</string>
+    <string name="debug_dialog_temp_text">Replace with GameViewModel</string>
+    <string name="delete">Delete</string>
 </resources>
