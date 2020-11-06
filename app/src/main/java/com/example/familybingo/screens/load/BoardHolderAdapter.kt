@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.familybingo.R
@@ -23,6 +25,15 @@ class BoardHolderAdapter : RecyclerView.Adapter<BoardHolderAdapter.ViewHolder>()
             field = value
             notifyDataSetChanged()
         }
+
+
+    private val _selectedTitleText = MutableLiveData<String>()
+    val selectedTitleText: LiveData<String>
+        get() = _selectedTitleText
+
+    private val _flagForDeletion = MutableLiveData<Boolean>()
+    val flagForDeletion: LiveData<Boolean>
+        get() = _flagForDeletion
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val title: TextView = itemView.findViewById(R.id.list_item_title)
@@ -80,15 +91,22 @@ class BoardHolderAdapter : RecyclerView.Adapter<BoardHolderAdapter.ViewHolder>()
                 .setTitle("Confirm deletion of this game:")
             val mAlertDialog = mBuilder.show()
 
-            // TODO make it display the right title text somewhere here
-            // TODO also find a way to make it talk to the DB and delete the entries
+            mDialogView.deleteFieldText.text = holder.title.text.toString()
+            _selectedTitleText.value = holder.title.text.toString()
+
+
 
             mDialogView.deleteDialogCancel.setOnClickListener {
                 mAlertDialog.dismiss()
             }
 
             mDialogView.deleteDialogDelete.setOnClickListener {
-                Log.i("LoadGameViewModel", "Clicked the delete button. Currently does nothing.")
+                Log.i("BoardHolderAdapter", "Clicked the delete button.")
+                _flagForDeletion.value = true
+                Log.i("BoardHolderAdapter", "Flagged \"${_selectedTitleText.value}\" for deletion: ${_flagForDeletion.value}.")
+
+                mAlertDialog.dismiss()
+
 
             }
         }
@@ -100,6 +118,10 @@ class BoardHolderAdapter : RecyclerView.Adapter<BoardHolderAdapter.ViewHolder>()
         val view = layoutInflater
             .inflate(R.layout.list_item_board_title, parent, false)
         return ViewHolder(view)
+    }
+
+    fun setDeletionFalse() {
+        _flagForDeletion.value = false
     }
 
 }

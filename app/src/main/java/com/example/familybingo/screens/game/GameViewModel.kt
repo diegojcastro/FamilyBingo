@@ -162,6 +162,7 @@ class GameViewModel(
 
     fun openGameDialog(index: Int, view: TextView) {
         _selectedFieldIndex.value = index
+        _selectedFieldText.value = _bingoBoard.value?.get(index)?.text
         _selectedView.value = view
         _markFieldDialog.value = true
     }
@@ -215,8 +216,8 @@ class GameViewModel(
         //observer on above data does the stuff below, previously hardcoded
         //view.setBackgroundResource(BG_MISSED)
         Log.i("GameViewModel", "Set background to $BG_MISSED")
-        val color = getColor(getApplication(), R.color.white_text_color)
-        view.setTextColor(color)
+//        val color = getColor(getApplication(), R.color.white_text_color)
+//        view.setTextColor(color)
 
         viewModelScope.launch {
             val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))
@@ -244,8 +245,8 @@ class GameViewModel(
         //observer on above data does the stuff below, previously hardcoded
         //view.setBackgroundResource(BG_CHECKED)
         Log.i("GameViewModel", "Set background to $BG_CHECKED")
-        val color = getColor(getApplication(), R.color.white_text_color)
-        view.setTextColor(color)
+//        val color = getColor(getApplication(), R.color.white_text_color)
+//        view.setTextColor(color)
 
         viewModelScope.launch {
             val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))

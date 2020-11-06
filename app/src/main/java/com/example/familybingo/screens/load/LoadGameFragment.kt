@@ -48,12 +48,25 @@ class LoadGameFragment : Fragment() {
             }
         })
 
+        adapter.flagForDeletion.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                if (adapter.selectedTitleText.value != null) {
+                    Log.i("LoadGameFragment", "About to call for deletion of ${adapter.selectedTitleText.value}.")
+                    viewModel.callDatabaseDeletionWithTitle(adapter.selectedTitleText.value!!)
+                    adapter.setDeletionFalse()
+                }
+
+            }
+        })
+
         return binding.root
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LoadGameViewModel::class.java)
     }
+
 
 }

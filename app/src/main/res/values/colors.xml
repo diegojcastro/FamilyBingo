@@ -16,6 +16,7 @@
     <color name="black_text_color">#de000000</color>
     <color name="grey_text_color">#99000000</color>
     <color name="grey_button_color">#606060</color>
+    <color name="gene_almost_black">#2a2a2a</color>
     <color name="white_text_color">#ffffff</color>
     <color name="boardSetupTextField_background">#B39ED5</color>
     <color name="boardSetupTextField_highlight">#B47FF3</color>

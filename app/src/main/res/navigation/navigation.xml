@@ -27,7 +27,9 @@
             android:defaultValue="NewBoard01" />
         <action
             android:id="@+id/action_boardSetupFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/titleFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/loadGameFragment"

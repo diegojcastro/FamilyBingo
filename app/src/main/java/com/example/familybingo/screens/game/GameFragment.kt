@@ -63,7 +63,8 @@ class GameFragment : Fragment() {
                     .setTitle("Mark this box!")
                 val mAlertDialog = mBuilder.show()
 
-                // TODO Make it display the right text on the game mark dialog
+
+                mDialogView.fieldText.text = viewModel.selectedFieldText.value
 
                 mDialogView.dialogCancel.setOnClickListener {
                     mAlertDialog.dismiss()
@@ -105,6 +106,8 @@ class GameFragment : Fragment() {
 
         return binding.root
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -16,13 +16,13 @@
     <!-- TextView Styles -->
     <style name="CheckedField" parent="Widget.AppCompat.TextView">
         <item name="android:background">@drawable/bingoboard_fieldbackground_checked</item>
-        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textColor">@color/gene_almost_black</item>
         <item name="colorAccent">@color/selected_green_color</item>
     </style>
 
     <style name="MissedField" parent="Widget.AppCompat.TextView">
         <item name="android:background">@drawable/bingoboard_fieldbackground_missed</item>
-        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textColor">@color/gene_almost_black</item>
         <item name="colorAccent">@color/selected_red_color</item>
     </style>
 
@@ -36,15 +36,15 @@
         <item name="android:background">@color/ok_green_color</item>
         <item name="colorButtonNormal">@color/ok_green_color</item>
         <item name="colorControlHighlight">@color/selected_green_color</item>
-        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textColor">@color/gene_almost_black</item>
         <item name="colorAccent">@color/selected_green_color</item>
     </style>
 
     <style name="MissedButton" parent="Widget.AppCompat.Button.Colored">
-        <item name="android:background">@color/skip_red_color</item>
-        <item name="colorButtonNormal">@color/skip_red_color</item>
+        <item name="android:background">@color/bingo_wrong_missed</item>
+        <item name="colorButtonNormal">@color/bingo_wrong_missed</item>
         <item name="colorControlHighlight">@color/selected_red_color</item>
-        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textColor">@color/gene_almost_black</item>
         <item name="colorAccent">@color/selected_red_color</item>
     </style>
 

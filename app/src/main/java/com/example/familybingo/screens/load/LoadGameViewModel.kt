@@ -1,6 +1,7 @@
 package com.example.familybingo.screens.load
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,6 +30,22 @@ class LoadGameViewModel(
     private suspend fun getAllTitles() : List<BoardHolder>? {
         val titles = database.getAllBoards()
         return titles
+    }
+
+    fun callDatabaseDeletionWithTitle(title : String) {
+        viewModelScope.launch{
+            deleteAllDataWithTitle(title)
+            // Will this execute before the data is deleted?
+            allTitles.value = getAllTitles()
+        }
+    }
+
+    private suspend fun deleteAllDataWithTitle(title : String) {
+        database.removeBoard(title)
+        database.removeHolder(title)
+        Log.i("LoadGameViewModel", "Ran database deletion on key: $title")
+
+
     }
 
 
