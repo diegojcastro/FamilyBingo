@@ -4,7 +4,7 @@
 
     <!-- View background color -->
     <solid
-        android:color="@color/skip_red_color" >
+        android:color="@color/bingo_wrong_missed" >
     </solid>
 
     <!-- View border color and width -->
