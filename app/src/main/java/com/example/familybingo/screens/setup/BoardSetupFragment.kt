@@ -1,5 +1,6 @@
 package com.example.familybingo.screens.setup
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,9 @@ import androidx.navigation.findNavController
 import com.example.familybingo.R
 import com.example.familybingo.database.BingoDatabase
 import com.example.familybingo.databinding.BoardSetupFragmentBinding
+import kotlinx.android.synthetic.main.board_setup_edit_field_dialog.*
+import kotlinx.android.synthetic.main.board_setup_edit_field_dialog.view.*
+import kotlinx.android.synthetic.main.game_mark_field_dialog.view.*
 
 class BoardSetupFragment : Fragment() {
 
@@ -55,6 +59,40 @@ class BoardSetupFragment : Fragment() {
                 myNavC.navigate(action)
             }
 
+        })
+
+        viewModel.editFieldVisible.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                Log.i("BoardSetupFragment", "I saw editFieldVisible switch to true.")
+                val mDialogView = LayoutInflater.from(this.context).inflate(R.layout.board_setup_edit_field_dialog, null)
+                val mBuilder = AlertDialog.Builder(this.context)
+                    .setView(mDialogView)
+                    .setTitle("Edit this field:")
+                val mAlertDialog = mBuilder.show()
+
+                mDialogView.boardSetupEditTextField.setText(viewModel.newBingoBoard.value?.get(viewModel.currentEditField.value!!)?.text)
+
+                mDialogView.boardSetupEditTextField.requestFocus()
+
+                mDialogView.setupEditDialogCancel.setOnClickListener {
+                    mAlertDialog.dismiss()
+                }
+
+                mDialogView.setupEditDialogConfirm.setOnClickListener {
+                    Log.i("BoardSetupFragment", "Trying to edit the text in this field.")
+                    val i = viewModel.currentEditField.value!!
+                    val newText = mAlertDialog.boardSetupEditTextField.text.toString()
+                    viewModel.editTextEntry(i, newText)
+                    Log.i("BoardSetupFragment", "Trying to edit the text in index $i and set to: $newText")
+                    viewModel.finishedEditingEntry()
+
+                    mAlertDialog.dismiss()
+                }
+
+
+
+
+            }
         })
 
         return binding.root

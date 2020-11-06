@@ -534,7 +534,8 @@
             app:layout_constraintEnd_toStartOf="@+id/debugButton2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/bottom_transparent_placeholder"
-            app:layout_constraintTop_toBottomOf="@+id/field51" />
+            app:layout_constraintTop_toBottomOf="@+id/field51"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/debugButton2"
@@ -546,7 +547,8 @@
             app:layout_constraintEnd_toStartOf="@+id/debugButton3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/debugButton1"
-            app:layout_constraintTop_toTopOf="@+id/debugButton1" />
+            app:layout_constraintTop_toTopOf="@+id/debugButton1"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/debugButton3"
@@ -558,7 +560,8 @@
             app:layout_constraintEnd_toStartOf="@+id/debugButton4"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/debugButton2"
-            app:layout_constraintTop_toTopOf="@+id/debugButton2" />
+            app:layout_constraintTop_toTopOf="@+id/debugButton2"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/debugButton4"
@@ -570,7 +573,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/debugButton3"
-            app:layout_constraintTop_toTopOf="@+id/debugButton3" />
+            app:layout_constraintTop_toTopOf="@+id/debugButton3"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/testTextView"
@@ -591,68 +595,6 @@
             app:layout_constraintTop_toBottomOf="@+id/field53"
             app:layout_constraintVertical_bias=".7" />
 
-
-        <ImageView
-            android:id="@+id/blur_background_imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/bingoboard_editview_blur_background"
-            android:visibility="@{boardSetupViewModel.editFieldVisible}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:visibility="gone" />
-
-
-        <EditText
-            android:id="@+id/editTextBingoField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bingoboard_fieldbackground_bordered"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:text="@={boardSetupViewModel.tryToGetObserver().fieldText}"
-            android:visibility="@{boardSetupViewModel.editFieldVisible}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".3"
-            tools:visibility="visible" />
-
-        <Button
-            android:id="@+id/editFieldButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="@string/edit_button"
-            android:visibility="@{boardSetupViewModel.editFieldVisible}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/doneEditingFieldButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextBingoField"
-            app:layout_constraintVertical_bias=".1"
-            tools:visibility="visible" />
-
-        <Button
-            android:id="@+id/doneEditingFieldButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:onClick="@{ () -> boardSetupViewModel.editTextEntry(boardSetupViewModel.currentEditField, editTextBingoField.text)}"
-            android:text="@string/done_button"
-            android:theme="@style/GoButton"
-            android:visibility="@{boardSetupViewModel.editFieldVisible}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/editFieldButton"
-            app:layout_constraintTop_toTopOf="@+id/editFieldButton"
-            tools:visibility="visible" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

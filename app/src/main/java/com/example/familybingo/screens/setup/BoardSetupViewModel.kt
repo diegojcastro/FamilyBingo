@@ -25,26 +25,26 @@ class BoardSetupViewModel(
     // This observer stuff was necessary for two-way binding of sorts
     // Where the view model value for a text field updates as I change
     // the edit text in the UI fragment.
-    var mObserver = Observer()
-    fun getObserver(): Observer? {
-        return mObserver
-    }
-    fun tryToGetObserver(): Observer {
-        return mObserver
-    }
-    class Observer : BaseObservable() {
-        private var fieldText = ""
-        @Bindable
-        fun getFieldText(): String {
-            return fieldText
-        }
-        fun setFieldText(myNewText : String) {
-            if(fieldText != myNewText) {
-                fieldText = myNewText
-                notifyPropertyChanged(BR.fieldText)
-            }
-        }
-    }
+//    var mObserver = Observer()
+//    fun getObserver(): Observer? {
+//        return mObserver
+//    }
+//    fun tryToGetObserver(): Observer {
+//        return mObserver
+//    }
+//    class Observer : BaseObservable() {
+//        private var fieldText = ""
+//        @Bindable
+//        fun getFieldText(): String {
+//            return fieldText
+//        }
+//        fun setFieldText(myNewText : String) {
+//            if(fieldText != myNewText) {
+//                fieldText = myNewText
+//                notifyPropertyChanged(BR.fieldText)
+//            }
+//        }
+//    }
 
   //  private var bingoEntries = MutableLiveData<List<BingoField>>()
 
@@ -188,9 +188,10 @@ class BoardSetupViewModel(
     }
 
 
-    private val _editFieldVisible = MutableLiveData<Int>()
-    val editFieldVisible: LiveData<Int>
+    private val _editFieldVisible = MutableLiveData<Boolean>()
+    val editFieldVisible: LiveData<Boolean>
         get() = _editFieldVisible
+
     private val _currentEditField = MutableLiveData<Int>()
     val currentEditField: LiveData<Int>
         get() = _currentEditField
@@ -241,7 +242,7 @@ class BoardSetupViewModel(
         }
 
         Log.i("BoardSetupViewModel", "Board Setup ViewModel created!")
-        _editFieldVisible.value = View.GONE
+        _editFieldVisible.value = false
     }
 
 
@@ -284,16 +285,16 @@ class BoardSetupViewModel(
 
     fun showEditField(index: Int) {
         _currentEditField.value = index
-        _editFieldVisible.value = View.VISIBLE
+        _editFieldVisible.value = true
         //_editFieldText.value = bingoBoard[index].text
-        mObserver.setFieldText(bingoBoard2[index].text)
+//        mObserver.setFieldText(bingoBoard2[index].text)
         Log.i("BoardSetupViewModel", "ViewModel should have made edit popup visible")
     }
 
 
     fun editTextEntry(index : Int, newText : String) {
         if (index in 0..24) {
-            Log.i("BoardSetupViewModel", "mObserver field text is "+mObserver.getFieldText())
+//            Log.i("BoardSetupViewModel", "mObserver field text is "+mObserver.getFieldText())
             Log.i("BoardSetupViewModel", "Original text on field "+index.toString()+" is "+bingoBoard2[index].text+" and I'm trying to set it to "+newText)
             bingoBoard2[index].text = newText
             Log.i("BoardSetupViewModel", "Changed text in field $index to "+bingoBoard2[index].text)
@@ -313,7 +314,11 @@ class BoardSetupViewModel(
             }
             // Added this line to see if LiveData updates now
         }
-        _editFieldVisible.value = View.GONE
+        _editFieldVisible.value = false
+    }
+
+    fun finishedEditingEntry() {
+        _editFieldVisible.value = false
     }
 
 
@@ -322,42 +327,42 @@ class BoardSetupViewModel(
     }
 
 
-
-    fun debugMakeEntry() {
-        viewModelScope.launch {
-            Log.i("BoardSetupViewModel", "Attempting to make an entry in database.")
-            val myNewBingoField = BingoField()
-            myNewBingoField.parentBoardName = "diegoTest"
-            myNewBingoField.location = 11
-            myNewBingoField.text = "Test text here"
-            insert(myNewBingoField)
-            oneEntry.value = getLatest()
-            Log.i("BoardSetupViewModel", "Inserted entry index ${myNewBingoField.location} with text ${myNewBingoField.text}")
-            Log.i("BoardSetupViewModel", "Now I'll try to read it.")
-        }
-    }
-
-
-    fun debugReadEntry() {
-        val lastEntry = oneEntry.value
-        Log.i("BoardSetupViewModel", "Last entry text is ${lastEntry?.text}.")
-        Log.i("BoardSetupViewModel", "Last entry ID is ${lastEntry?.fieldID}.")
-        Log.i("BoardSetupViewModel", "Last entry location is ${lastEntry?.location}.")
-        Log.i("BoardSetupViewModel", "Last entry parent is ${lastEntry?.parentBoardName}.")
-    }
-
-    // This worked. Tested and read properly.
-    fun debugReadEntryAtIndex() {
-        viewModelScope.launch {
-            Log.i("BoardSetupViewModel", "Attempting to read DiegoTest entry loc 11.")
-            oneEntry.value = getEntryAtIndex("diegoTest", 11)
-            val myEntry = oneEntry.value
-            Log.i("BoardSetupViewModel", "Test entry text is ${myEntry?.text}.")
-            Log.i("BoardSetupViewModel", "Test entry ID is ${myEntry?.fieldID}.")
-            Log.i("BoardSetupViewModel", "Test entry location is ${myEntry?.location}.")
-            Log.i("BoardSetupViewModel", "Test entry parent is ${myEntry?.parentBoardName}.")
-        }
-    }
+    // Old code to test DB manipulation
+//    fun debugMakeEntry() {
+//        viewModelScope.launch {
+//            Log.i("BoardSetupViewModel", "Attempting to make an entry in database.")
+//            val myNewBingoField = BingoField()
+//            myNewBingoField.parentBoardName = "diegoTest"
+//            myNewBingoField.location = 11
+//            myNewBingoField.text = "Test text here"
+//            insert(myNewBingoField)
+//            oneEntry.value = getLatest()
+//            Log.i("BoardSetupViewModel", "Inserted entry index ${myNewBingoField.location} with text ${myNewBingoField.text}")
+//            Log.i("BoardSetupViewModel", "Now I'll try to read it.")
+//        }
+//    }
+//
+//
+//    fun debugReadEntry() {
+//        val lastEntry = oneEntry.value
+//        Log.i("BoardSetupViewModel", "Last entry text is ${lastEntry?.text}.")
+//        Log.i("BoardSetupViewModel", "Last entry ID is ${lastEntry?.fieldID}.")
+//        Log.i("BoardSetupViewModel", "Last entry location is ${lastEntry?.location}.")
+//        Log.i("BoardSetupViewModel", "Last entry parent is ${lastEntry?.parentBoardName}.")
+//    }
+//
+//    // This worked. Tested and read properly.
+//    fun debugReadEntryAtIndex() {
+//        viewModelScope.launch {
+//            Log.i("BoardSetupViewModel", "Attempting to read DiegoTest entry loc 11.")
+//            oneEntry.value = getEntryAtIndex("diegoTest", 11)
+//            val myEntry = oneEntry.value
+//            Log.i("BoardSetupViewModel", "Test entry text is ${myEntry?.text}.")
+//            Log.i("BoardSetupViewModel", "Test entry ID is ${myEntry?.fieldID}.")
+//            Log.i("BoardSetupViewModel", "Test entry location is ${myEntry?.location}.")
+//            Log.i("BoardSetupViewModel", "Test entry parent is ${myEntry?.parentBoardName}.")
+//        }
+//    }
 
     // TODO make keyboard disappear after editTextEntry
 
