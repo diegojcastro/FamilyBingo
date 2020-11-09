@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/titleFragment"
-        android:name="com.example.familybingo.screens.title.TitleFragment"
+        android:name="com.appsbydiego.familybingo.screens.title.TitleFragment"
         android:label="TitleFragment"
         tools:layout="@layout/fragment_title">
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/boardSetupFragment"
-        android:name="com.example.familybingo.screens.setup.BoardSetupFragment"
+        android:name="com.appsbydiego.familybingo.screens.setup.BoardSetupFragment"
         android:label="board_setup_fragment"
         tools:layout="@layout/board_setup_fragment" >
         <argument
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/loadGameFragment"
-        android:name="com.example.familybingo.screens.load.LoadGameFragment"
+        android:name="com.appsbydiego.familybingo.screens.load.LoadGameFragment"
         android:label="LoadGameFragment"
         tools:layout="@layout/load_game_fragment">
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.example.familybingo.screens.game.GameFragment"
+        android:name="com.appsbydiego.familybingo.screens.game.GameFragment"
         android:label="game_fragment"
         tools:layout="@layout/game_fragment" >
         <argument

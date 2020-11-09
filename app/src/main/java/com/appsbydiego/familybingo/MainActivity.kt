@@ -1,4 +1,4 @@
-package com.example.familybingo
+package com.appsbydiego.familybingo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

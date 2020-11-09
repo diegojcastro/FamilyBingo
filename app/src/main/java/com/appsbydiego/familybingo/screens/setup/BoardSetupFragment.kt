@@ -1,4 +1,4 @@
-package com.example.familybingo.screens.setup
+package com.appsbydiego.familybingo.screens.setup
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -11,12 +11,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.example.familybingo.R
-import com.example.familybingo.database.BingoDatabase
-import com.example.familybingo.databinding.BoardSetupFragmentBinding
+import com.appsbydiego.familybingo.R
+import com.appsbydiego.familybingo.database.BingoDatabase
+import com.appsbydiego.familybingo.databinding.BoardSetupFragmentBinding
 import kotlinx.android.synthetic.main.board_setup_edit_field_dialog.*
 import kotlinx.android.synthetic.main.board_setup_edit_field_dialog.view.*
-import kotlinx.android.synthetic.main.game_mark_field_dialog.view.*
 
 class BoardSetupFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.example.familybingo.database
+package com.appsbydiego.familybingo.database
 
 import android.content.Context
 import androidx.room.Database

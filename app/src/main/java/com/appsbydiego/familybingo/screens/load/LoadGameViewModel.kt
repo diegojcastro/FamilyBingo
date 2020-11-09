@@ -1,13 +1,12 @@
-package com.example.familybingo.screens.load
+package com.appsbydiego.familybingo.screens.load
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.familybingo.database.BingoDatabaseDao
-import com.example.familybingo.database.BoardHolder
+import com.appsbydiego.familybingo.database.BingoDatabaseDao
+import com.appsbydiego.familybingo.database.BoardHolder
 import kotlinx.coroutines.launch
 
 class LoadGameViewModel(

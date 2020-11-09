@@ -9,7 +9,7 @@
         <import type="android.view.View"/>
         <variable
             name="loadGameViewModel"
-            type="com.example.familybingo.screens.load.LoadGameViewModel" />
+            type="com.appsbydiego.familybingo.screens.load.LoadGameViewModel" />
 
     </data>
 

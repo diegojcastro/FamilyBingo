@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.example.familybingo"
+        applicationId "com.appsbydiego.familybingo"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1

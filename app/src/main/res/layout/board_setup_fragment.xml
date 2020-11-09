@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="boardSetupViewModel"
-            type="com.example.familybingo.screens.setup.BoardSetupViewModel" />
+            type="com.appsbydiego.familybingo.screens.setup.BoardSetupViewModel" />
 
 
     </data>

@@ -1,4 +1,4 @@
-package com.example.familybingo
+package com.appsbydiego.familybingo
 
 import org.junit.Test
 

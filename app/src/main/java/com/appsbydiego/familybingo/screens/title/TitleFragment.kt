@@ -1,4 +1,4 @@
-package com.example.familybingo.screens.title
+package com.appsbydiego.familybingo.screens.title
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -8,9 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import com.example.familybingo.R
-import com.example.familybingo.databinding.FragmentTitleBinding
+import com.appsbydiego.familybingo.R
+import com.appsbydiego.familybingo.databinding.FragmentTitleBinding
 import kotlinx.android.synthetic.main.new_game_dialog.view.*
 
 

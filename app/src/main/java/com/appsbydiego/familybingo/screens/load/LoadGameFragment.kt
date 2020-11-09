@@ -1,4 +1,4 @@
-package com.example.familybingo.screens.load
+package com.appsbydiego.familybingo.screens.load
 
 import android.os.Bundle
 import android.util.Log
@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.familybingo.R
-import com.example.familybingo.database.BingoDatabase
-import com.example.familybingo.databinding.LoadGameFragmentBinding
+import com.appsbydiego.familybingo.R
+import com.appsbydiego.familybingo.database.BingoDatabase
+import com.appsbydiego.familybingo.databinding.LoadGameFragmentBinding
 
 class LoadGameFragment : Fragment() {
 

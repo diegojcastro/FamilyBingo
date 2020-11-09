@@ -1,9 +1,9 @@
-package com.example.familybingo.screens.setup
+package com.appsbydiego.familybingo.screens.setup
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.familybingo.database.BingoDatabaseDao
+import com.appsbydiego.familybingo.database.BingoDatabaseDao
 
 class BoardSetupViewModelFactory(
     private val dataSource: BingoDatabaseDao,

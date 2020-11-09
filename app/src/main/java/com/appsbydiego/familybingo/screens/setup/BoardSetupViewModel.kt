@@ -1,19 +1,15 @@
-package com.example.familybingo.screens.setup
+package com.appsbydiego.familybingo.screens.setup
 
 import android.app.Application
 import android.util.Log
-import android.view.View
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.familybingo.BR
-import com.example.familybingo.R
-import com.example.familybingo.database.BingoDatabaseDao
-import com.example.familybingo.database.BingoField
-import com.example.familybingo.database.BoardHolder
+import com.appsbydiego.familybingo.R
+import com.appsbydiego.familybingo.database.BingoDatabaseDao
+import com.appsbydiego.familybingo.database.BingoField
+import com.appsbydiego.familybingo.database.BoardHolder
 import kotlinx.coroutines.launch
 
 class BoardSetupViewModel(

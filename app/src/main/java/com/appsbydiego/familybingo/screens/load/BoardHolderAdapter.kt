@@ -1,4 +1,4 @@
-package com.example.familybingo.screens.load
+package com.appsbydiego.familybingo.screens.load
 
 import android.app.AlertDialog
 import android.util.Log
@@ -11,9 +11,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.familybingo.R
-import com.example.familybingo.database.BoardHolder
-import kotlinx.android.synthetic.main.game_mark_field_dialog.view.*
+import com.appsbydiego.familybingo.R
+import com.appsbydiego.familybingo.database.BoardHolder
 import kotlinx.android.synthetic.main.load_delete_dialog.view.*
 import java.text.SimpleDateFormat
 import java.util.*

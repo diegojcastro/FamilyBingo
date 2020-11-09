@@ -10,7 +10,7 @@
         <import type="androidx.core.content.ContextCompat"/>
         <variable
             name="gameViewModel"
-            type="com.example.familybingo.screens.game.GameViewModel" />
+            type="com.appsbydiego.familybingo.screens.game.GameViewModel" />
 
     </data>
 

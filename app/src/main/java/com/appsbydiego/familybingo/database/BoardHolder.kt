@@ -1,4 +1,4 @@
-package com.example.familybingo.database
+package com.appsbydiego.familybingo.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

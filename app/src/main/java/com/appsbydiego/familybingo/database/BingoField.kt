@@ -1,9 +1,9 @@
-package com.example.familybingo.database
+package com.appsbydiego.familybingo.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.familybingo.R
+import com.appsbydiego.familybingo.R
 
 @Entity(tableName = "all_bingo_fields_table")
 data class BingoField (

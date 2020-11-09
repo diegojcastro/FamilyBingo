@@ -1,17 +1,7 @@
-package com.example.familybingo
+package com.appsbydiego.familybingo
 
-import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
-import com.example.familybingo.database.BingoDatabase
-import com.example.familybingo.database.BingoDatabaseDao
-import com.example.familybingo.database.BingoField
-import org.junit.Assert.assertEquals
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.IOException
 
 /**
  * Instrumented test, which will execute on an Android device.
