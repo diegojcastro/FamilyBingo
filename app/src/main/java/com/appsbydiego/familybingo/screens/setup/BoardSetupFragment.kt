@@ -29,7 +29,7 @@ class BoardSetupFragment : Fragment() {
                 savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.board_setup_fragment, container, false)
-        Log.i("BoardSetupFragment", "Called ViewModelProvider.get")
+//        Log.i("BoardSetupFragment", "Called ViewModelProvider.get")
 
         // This creation of ViewModel was before I added database+factory, now irrelevant
         // viewModel = ViewModelProvider(this).get(BoardSetupViewModel::class.java)
@@ -53,7 +53,7 @@ class BoardSetupFragment : Fragment() {
                 val myNavC = requireView().findNavController()
                 val action = BoardSetupFragmentDirections.actionBoardSetupFragmentToGameFragment()
                 action.boardTitle = viewModel.boardTitle
-                Log.i("BoardSetupFragment", "Trying to move to GameFragment, board title argument is: ${action.boardTitle}")
+//                Log.i("BoardSetupFragment", "Trying to move to GameFragment, board title argument is: ${action.boardTitle}")
 
                 myNavC.navigate(action)
             }
@@ -62,7 +62,7 @@ class BoardSetupFragment : Fragment() {
 
         viewModel.editFieldVisible.observe(viewLifecycleOwner, Observer {
             if (it == true) {
-                Log.i("BoardSetupFragment", "I saw editFieldVisible switch to true.")
+//                Log.i("BoardSetupFragment", "I saw editFieldVisible switch to true.")
                 val mDialogView = LayoutInflater.from(this.context).inflate(R.layout.board_setup_edit_field_dialog, null)
                 val mBuilder = AlertDialog.Builder(this.context)
                     .setView(mDialogView)
@@ -78,11 +78,11 @@ class BoardSetupFragment : Fragment() {
                 }
 
                 mDialogView.setupEditDialogConfirm.setOnClickListener {
-                    Log.i("BoardSetupFragment", "Trying to edit the text in this field.")
+//                    Log.i("BoardSetupFragment", "Trying to edit the text in this field.")
                     val i = viewModel.currentEditField.value!!
                     val newText = mAlertDialog.boardSetupEditTextField.text.toString()
                     viewModel.editTextEntry(i, newText)
-                    Log.i("BoardSetupFragment", "Trying to edit the text in index $i and set to: $newText")
+//                    Log.i("BoardSetupFragment", "Trying to edit the text in index $i and set to: $newText")
                     viewModel.finishedEditingEntry()
 
                     mAlertDialog.dismiss()

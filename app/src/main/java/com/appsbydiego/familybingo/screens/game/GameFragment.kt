@@ -25,11 +25,11 @@ class GameFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.game_fragment, container, false)
-        Log.i("GameFragment", "Called ViewModelProvider.get")
+//        Log.i("GameFragment", "Called ViewModelProvider.get")
 
         // Trying to trace a nullpointer exception when creating the GameFragment
         val titleFromArgs = GameFragmentArgs.fromBundle(requireArguments()).boardTitle
-        Log.i("GameFragment", "I think the boardTitle is: $titleFromArgs")
+//        Log.i("GameFragment", "I think the boardTitle is: $titleFromArgs")
 
 
         // This is the block that adds all the Database+ViewModelFactory stuff
@@ -49,13 +49,13 @@ class GameFragment : Fragment() {
 
         //Observer for markFieldDialog (to popup whether we check/miss each entry on click)
         viewModel.markFieldDialog.observe(viewLifecycleOwner, Observer {
-            Log.i("GameFragment", "Started observer on gameViewModel markFieldDialog")
+//            Log.i("GameFragment", "Started observer on gameViewModel markFieldDialog")
 
             if (it == true) {
                 val info1 = viewModel.markFieldDialog.value
                 val info2 = viewModel.selectedFieldIndex.value
-                Log.i("GameFragment", "I saw markFieldDialog switch to true.")
-                Log.i("GameFragment", "markFieldDialog = $info1 and fieldIndex = $info2.")
+//                Log.i("GameFragment", "I saw markFieldDialog switch to true.")
+//                Log.i("GameFragment", "markFieldDialog = $info1 and fieldIndex = $info2.")
 
                 val mDialogView = LayoutInflater.from(this.context).inflate(R.layout.game_mark_field_dialog, null)
                 val mBuilder = AlertDialog.Builder(this.context)
@@ -73,7 +73,7 @@ class GameFragment : Fragment() {
                 mDialogView.dialogUnmarked.setOnClickListener {
                     val i = viewModel.selectedFieldIndex.value!!
                     viewModel.markFieldDefault(i, viewModel.selectedView.value!!)
-                    Log.i("GameFragment", "Marked entry $i as Unmarked: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
+//                    Log.i("GameFragment", "Marked entry $i as Unmarked: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
                     mAlertDialog.dismiss()
                 }
 
@@ -81,7 +81,7 @@ class GameFragment : Fragment() {
                     val i = viewModel.selectedFieldIndex.value!!
                     // if I need a reference to the clicked view, use this one:
                     viewModel.markFieldMissed(i, viewModel.selectedView.value!!)
-                    Log.i("GameFragment", "Marked entry $i as Missed: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
+//                    Log.i("GameFragment", "Marked entry $i as Missed: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
                     mAlertDialog.dismiss()
                 }
 
@@ -89,7 +89,7 @@ class GameFragment : Fragment() {
                     val i = viewModel.selectedFieldIndex.value!!
                     // if I need a reference to the clicked view, use this one:
                     viewModel.markFieldChecked(i, viewModel.selectedView.value!!)
-                    Log.i("GameFragment", "Marked entry $i as Checked: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
+//                    Log.i("GameFragment", "Marked entry $i as Checked: ${viewModel.bingoBoard.value?.get(i)?.marking.toString()}!")
                     mAlertDialog.dismiss()
                 }
                 viewModel.closeGameDialog()

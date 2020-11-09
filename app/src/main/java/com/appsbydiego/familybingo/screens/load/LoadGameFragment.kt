@@ -22,7 +22,7 @@ class LoadGameFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.load_game_fragment, container, false)
-        Log.i("LoadGameFragment", "Called ViewModelProvider.get")
+//        Log.i("LoadGameFragment", "Called ViewModelProvider.get")
 
         // This is the block that adds all the Database+ViewModelFactory stuff
         // Reference to application context
@@ -51,7 +51,7 @@ class LoadGameFragment : Fragment() {
         adapter.flagForDeletion.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 if (adapter.selectedTitleText.value != null) {
-                    Log.i("LoadGameFragment", "About to call for deletion of ${adapter.selectedTitleText.value}.")
+//                    Log.i("LoadGameFragment", "About to call for deletion of ${adapter.selectedTitleText.value}.")
                     viewModel.callDatabaseDeletionWithTitle(adapter.selectedTitleText.value!!)
                     adapter.setDeletionFalse()
                 }

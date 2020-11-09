@@ -108,7 +108,7 @@ class BoardSetupViewModel(
     suspend fun clear() {
         database.clearEverything()
         database.clearAllHolders()
-        Log.i("BoardSetupViewModel", "Nuked it. Everything deleted from DB Fields+Holders.")
+        //Log.i("BoardSetupViewModel", "Nuked it. Everything deleted from DB Fields+Holders.")
 
     }
 
@@ -119,8 +119,8 @@ class BoardSetupViewModel(
             insert(newField)
             oneEntry.value = getLatest()
             val startText = oneEntry.value?.text
-            Log.i("BoardSetupViewModel", "Inserted new field, index: ${oneEntry.value?.fieldID}.")
-            Log.i("BoardSetupViewModel", "Starting text on ${oneEntry.value?.fieldID} field is $startText.")
+            //Log.i("BoardSetupViewModel", "Inserted new field, index: ${oneEntry.value?.fieldID}.")
+            //Log.i("BoardSetupViewModel", "Starting text on ${oneEntry.value?.fieldID} field is $startText.")
 
         }
     }
@@ -132,8 +132,8 @@ class BoardSetupViewModel(
             val oldField = oneEntry.value ?: return@launch
 //            oldField.location = 7
 //            oldField.text = "Complete, location set to 7"
-            Log.i("BoardSetupViewModel", "Last entry ID is ${oldField.fieldID}.")
-            Log.i("BoardSetupViewModel", "Last entry text is '${oldField.text}'.")
+            //Log.i("BoardSetupViewModel", "Last entry ID is ${oldField.fieldID}.")
+            //Log.i("BoardSetupViewModel", "Last entry text is '${oldField.text}'.")
 
             update(oldField)
         }
@@ -161,9 +161,9 @@ class BoardSetupViewModel(
             val info = allEntries.value?.get(0)?.fieldID
             val info2 = allEntries.value?.get(sizeNum-1)?.fieldID
             val locInfo = allEntries.value?.get(0)?.location
-            Log.i("BoardSetupViewModel", "allEntries is of size = $size")
-            Log.i("BoardSetupViewModel", "The highest element in allEntries has fieldID = $info and location = $locInfo")
-            Log.i("BoardSetupViewModel", "The lowest element in allEntries has fieldID = $info2")
+//            Log.i("BoardSetupViewModel", "allEntries is of size = $size")
+//            Log.i("BoardSetupViewModel", "The highest element in allEntries has fieldID = $info and location = $locInfo")
+//            Log.i("BoardSetupViewModel", "The lowest element in allEntries has fieldID = $info2")
         }
     }
 
@@ -176,10 +176,10 @@ class BoardSetupViewModel(
             val info2 = allEntries.value?.get(sizeNum-1)?.fieldID
             val locInfo = allEntries.value?.get(0)?.location
             val parentInfo = allEntries.value?.get(0)?.parentBoardName
-            Log.i("BoardSetupViewModel", "allEntries is of size = $size")
-            Log.i("BoardSetupViewModel", "The highest element in allEntries has fieldID = $info and location = $locInfo")
-            Log.i("BoardSetupViewModel", "The lowest element in allEntries has fieldID = $info2")
-            Log.i("BoardSetupViewModel", "The parent board is thought to be = $parentInfo")
+//            Log.i("BoardSetupViewModel", "allEntries is of size = $size")
+//            Log.i("BoardSetupViewModel", "The highest element in allEntries has fieldID = $info and location = $locInfo")
+//            Log.i("BoardSetupViewModel", "The lowest element in allEntries has fieldID = $info2")
+//            Log.i("BoardSetupViewModel", "The parent board is thought to be = $parentInfo")
         }
     }
 
@@ -215,15 +215,15 @@ class BoardSetupViewModel(
             allEntries.value = getEntriesFromParent()
 
             if (allEntries.value?.isEmpty()!!) {
-                Log.i("BoardSetupViewModel",
-                    "allEntries.value is seemingly: ${allEntries.value}, should be empty"
-                )
+//                Log.i("BoardSetupViewModel",
+//                    "allEntries.value is seemingly: ${allEntries.value}, should be empty"
+//                )
                 createBoardOnLoad()
             }
             else {
-                Log.i("BoardSetupViewModel",
-                    "allEntries.value is seemingly: ${allEntries.value}, should be size 25"
-                )
+//                Log.i("BoardSetupViewModel",
+//                    "allEntries.value is seemingly: ${allEntries.value}, should be size 25"
+//                )
                 _newBingoBoard.value = allEntries.value
                 bingoBoard2 = _newBingoBoard.value as MutableList<BingoField>
 
@@ -237,7 +237,7 @@ class BoardSetupViewModel(
             }
         }
 
-        Log.i("BoardSetupViewModel", "Board Setup ViewModel created!")
+//        Log.i("BoardSetupViewModel", "Board Setup ViewModel created!")
         _editFieldVisible.value = false
     }
 
@@ -251,13 +251,13 @@ class BoardSetupViewModel(
                 insert(newBingoField)
                 oneEntry.value = getLatest()
                 val startText = oneEntry.value?.text
-                Log.i("BoardSetupViewModel", "Inserted new field, index: ${oneEntry.value?.fieldID}, text: $startText.")
+//                Log.i("BoardSetupViewModel", "Inserted new field, index: ${oneEntry.value?.fieldID}, text: $startText.")
             }
             val newDate = System.currentTimeMillis()
             val newBoardHolder = BoardHolder(boardTitle, newDate, "Setup", 0)
             insert(newBoardHolder)
             val latestHolder = getHolderByTitle(boardTitle)
-            Log.i("BoardSetupViewModel", "Inserted new BoardHolder, ID: ${latestHolder?.boardID}, title: ${latestHolder?.title}")
+//            Log.i("BoardSetupViewModel", "Inserted new BoardHolder, ID: ${latestHolder?.boardID}, title: ${latestHolder?.title}")
 
 
             _newBingoBoard.value = getEntriesFromParent()
@@ -276,7 +276,7 @@ class BoardSetupViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        Log.i("BoardSetupViewModel", "BoardSetupViewModel destroyed!")
+//        Log.i("BoardSetupViewModel", "BoardSetupViewModel destroyed!")
     }
 
     fun showEditField(index: Int) {
@@ -284,29 +284,29 @@ class BoardSetupViewModel(
         _editFieldVisible.value = true
         //_editFieldText.value = bingoBoard[index].text
 //        mObserver.setFieldText(bingoBoard2[index].text)
-        Log.i("BoardSetupViewModel", "ViewModel should have made edit popup visible")
+//        Log.i("BoardSetupViewModel", "ViewModel should have made edit popup visible")
     }
 
 
     fun editTextEntry(index : Int, newText : String) {
         if (index in 0..24) {
 //            Log.i("BoardSetupViewModel", "mObserver field text is "+mObserver.getFieldText())
-            Log.i("BoardSetupViewModel", "Original text on field "+index.toString()+" is "+bingoBoard2[index].text+" and I'm trying to set it to "+newText)
+//            Log.i("BoardSetupViewModel", "Original text on field "+index.toString()+" is "+bingoBoard2[index].text+" and I'm trying to set it to "+newText)
             bingoBoard2[index].text = newText
-            Log.i("BoardSetupViewModel", "Changed text in field $index to "+bingoBoard2[index].text)
+//            Log.i("BoardSetupViewModel", "Changed text in field $index to "+bingoBoard2[index].text)
             _newBingoBoard.value = bingoBoard2
-            Log.i("BoardSetupViewModel", "Equivalency test. NewText = $newText | and _newBingoBoard.value[index].text = "+ _newBingoBoard.value!![index].text)
+//            Log.i("BoardSetupViewModel", "Equivalency test. NewText = $newText | and _newBingoBoard.value[index].text = "+ _newBingoBoard.value!![index].text)
             viewModelScope.launch {
                 tempEntry.value = getEntryAtIndex(boardTitle, convertIndexToLocation(index)) ?: return@launch
                 val testingLocOfEntry = tempEntry.value!!.location
                 val tempEntryID = tempEntry.value!!.fieldID
-                Log.i("BoardSetupViewModel", "Before calling update, fieldID=$tempEntryID, fieldLocation=$testingLocOfEntry")
+//                Log.i("BoardSetupViewModel", "Before calling update, fieldID=$tempEntryID, fieldLocation=$testingLocOfEntry")
                 tempEntry.value!!.text = newText
                 update(tempEntry.value!!)
                 //trying to change from testingLocOfEntry to convertIndexToLocation(index)
                 oneEntry.value = getEntryAtIndex(boardTitle, testingLocOfEntry)
 
-                Log.i("BoardSetupViewModel", "After updating, the new entry text on DB is "+oneEntry.value!!.text)
+//                Log.i("BoardSetupViewModel", "After updating, the new entry text on DB is "+oneEntry.value!!.text)
             }
             // Added this line to see if LiveData updates now
         }

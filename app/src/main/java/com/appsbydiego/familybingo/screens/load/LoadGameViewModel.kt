@@ -42,7 +42,7 @@ class LoadGameViewModel(
     private suspend fun deleteAllDataWithTitle(title : String) {
         database.removeBoard(title)
         database.removeHolder(title)
-        Log.i("LoadGameViewModel", "Ran database deletion on key: $title")
+//        Log.i("LoadGameViewModel", "Ran database deletion on key: $title")
 
 
     }

@@ -54,7 +54,7 @@ class GameViewModel(
         _selectedFieldText.value = ""
         _markFieldDialog.value = false
         _gameScore.value = 0
-        Log.i("GameViewModel", "init1 complete. SelectedFieldIndex: ${selectedFieldIndex.value}. SelectedFieldText: ${selectedFieldText.value}. MarkFieldDialog: ${markFieldDialog.value}")
+//        Log.i("GameViewModel", "init1 complete. SelectedFieldIndex: ${selectedFieldIndex.value}. SelectedFieldText: ${selectedFieldText.value}. MarkFieldDialog: ${markFieldDialog.value}")
 
         // Commented out because it's explicitly written in the init block below
 //        viewModelScope.launch {
@@ -70,19 +70,19 @@ class GameViewModel(
     // DATABASE FUNCTIONS
     // DATABASE 1
     private suspend fun getBoardHolder() : BoardHolder? {
-        Log.i("GameViewModel", "Running database.selectHolder(boardTitle), function getBoardHolder().")
+//        Log.i("GameViewModel", "Running database.selectHolder(boardTitle), function getBoardHolder().")
         val title = database.selectHolder(boardTitle)
         return title
     }
     // DATABASE 2
     private suspend fun getEntries() : List<BingoField>? {
-        Log.i("GameViewModel", "Running database.getFromParent(boardTitle), function getEntries().")
+//        Log.i("GameViewModel", "Running database.getFromParent(boardTitle), function getEntries().")
         val entries = database.getFromParent(boardTitle)
         return entries
     }
     // DATABASE 3
     private suspend fun getEntryAtIndex(parent: String, index: Byte): BingoField? {
-        Log.i("GameViewModel", "Running database.getEntryAtIndex($parent, $index)")
+//        Log.i("GameViewModel", "Running database.getEntryAtIndex($parent, $index)")
         val thisEntry = database.getEntryAtIndex(parent, index)
         return thisEntry
     }
@@ -107,31 +107,31 @@ class GameViewModel(
     init {
         initializeTitleAndData()
         viewModelScope.launch {
-            Log.i("GameViewModel", "Start viewModelScope.launch on init block.")
+//            Log.i("GameViewModel", "Start viewModelScope.launch on init block.")
             titleHolder.value = getBoardHolder()
             // If the line above freezes it, the problem is most likely the observer on GameFragment
             val title = titleHolder.value?.title
-            Log.i("GameViewModel", "Read titleHolder correctly, title text: $title")
+//            Log.i("GameViewModel", "Read titleHolder correctly, title text: $title")
 
             val score = titleHolder.value?.score
             _gameScore.value = score
-            Log.i("GameViewModel", "Read score from titleHolder correctly, score text: $title")
+//            Log.i("GameViewModel", "Read score from titleHolder correctly, score text: $title")
 
 
             thisBoardEntries.value = getEntries()
             val tracingError = thisBoardEntries.value
-            Log.i("GameViewModel", "On second init block, I have thisBoardEntries.value set to: $tracingError")
+//            Log.i("GameViewModel", "On second init block, I have thisBoardEntries.value set to: $tracingError")
 
             if (thisBoardEntries.value?.isEmpty()!!) {
-                Log.i(
-                    "GameViewModel",
-                    "allEntries.value is EMPTY, seemingly: ${thisBoardEntries.value}, should be empty"
-                )
+//                Log.i(
+//                    "GameViewModel",
+//                    "allEntries.value is EMPTY, seemingly: ${thisBoardEntries.value}, should be empty"
+//                )
             } else {
-                Log.i(
-                    "GameViewModel",
-                    "allEntries.value is NOT empty, seemingly: ${thisBoardEntries.value}, should be size 25"
-                )
+//                Log.i(
+//                    "GameViewModel",
+//                    "allEntries.value is NOT empty, seemingly: ${thisBoardEntries.value}, should be size 25"
+//                )
                 _bingoBoard.value = thisBoardEntries.value
                 //           board = _bingoBoard.value as MutableList<BingoField>
                 var tempScore = 0
@@ -140,7 +140,7 @@ class GameViewModel(
                 }
 
                 val holder = getBoardHolder()
-                Log.i("GameViewModel", "Grabbed holder on init2, its value was originally: $holder")
+//                Log.i("GameViewModel", "Grabbed holder on init2, its value was originally: $holder")
 
                 if (holder != null) {
                     holder.lastOpened = System.currentTimeMillis()
@@ -148,7 +148,7 @@ class GameViewModel(
                     holder.score = tempScore
                     _gameScore.value = tempScore
                     update(holder)
-                    Log.i("GameViewModel", "Updated holder, its value is now: $holder")
+//                    Log.i("GameViewModel", "Updated holder, its value is now: $holder")
                     titleHolder.value = holder
                 }
             }
@@ -214,21 +214,21 @@ class GameViewModel(
         _bingoBoard.value = _bingoBoard.value
         //observer on above data does the stuff below, previously hardcoded
         //view.setBackgroundResource(BG_MISSED)
-        Log.i("GameViewModel", "Set background to $BG_MISSED")
+//        Log.i("GameViewModel", "Set background to $BG_MISSED")
 //        val color = getColor(getApplication(), R.color.white_text_color)
 //        view.setTextColor(color)
 
         viewModelScope.launch {
             val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))
-            Log.i("GameViewModel", "I think markedField is $markedField")
+//            Log.i("GameViewModel", "I think markedField is $markedField")
             if (markedField != null) {
                 markedField.marking = BG_MISSED
                 update(markedField)
-                Log.i("GameViewModel", "Updated field with $BG_MISSED marking on DB: $markedField")
+//                Log.i("GameViewModel", "Updated field with $BG_MISSED marking on DB: $markedField")
             }
             titleHolder.value!!.score = _gameScore.value!!
             update(titleHolder.value!!)
-            Log.i("GameViewModel", "Updated holder with score value of ${_gameScore.value}, holder: ${titleHolder.value}")
+//            Log.i("GameViewModel", "Updated holder with score value of ${_gameScore.value}, holder: ${titleHolder.value}")
         }
     }
 
@@ -243,21 +243,21 @@ class GameViewModel(
         _bingoBoard.value = _bingoBoard.value
         //observer on above data does the stuff below, previously hardcoded
         //view.setBackgroundResource(BG_CHECKED)
-        Log.i("GameViewModel", "Set background to $BG_CHECKED")
+//        Log.i("GameViewModel", "Set background to $BG_CHECKED")
 //        val color = getColor(getApplication(), R.color.white_text_color)
 //        view.setTextColor(color)
 
         viewModelScope.launch {
             val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))
-            Log.i("GameViewModel", "I think markedField is $markedField")
+//            Log.i("GameViewModel", "I think markedField is $markedField")
             if (markedField != null) {
                 markedField.marking = BG_CHECKED
                 update(markedField)
-                Log.i("GameViewModel", "Updated field with $BG_CHECKED marking on DB: $markedField")
+//                Log.i("GameViewModel", "Updated field with $BG_CHECKED marking on DB: $markedField")
             }
             titleHolder.value!!.score = _gameScore.value!!
             update(titleHolder.value!!)
-            Log.i("GameViewModel", "Updated holder with score value of ${_gameScore.value}, holder: ${titleHolder.value}")
+//            Log.i("GameViewModel", "Updated holder with score value of ${_gameScore.value}, holder: ${titleHolder.value}")
 
         }
     }
@@ -271,25 +271,25 @@ class GameViewModel(
         _bingoBoard.value!![index].marking = BG_UNMARKED
         // Refresh LiveData on GameFragment observer
         _bingoBoard.value = _bingoBoard.value
-        Log.i("GameViewModel", "Set background to $BG_UNMARKED")
+//        Log.i("GameViewModel", "Set background to $BG_UNMARKED")
         viewModelScope.launch {
             val markedField = getEntryAtIndex(boardTitle, convertIndexToLocation(index))
-            Log.i("GameViewModel", "I think markedField is $markedField")
+//            Log.i("GameViewModel", "I think markedField is $markedField")
             if (markedField != null) {
                 markedField.marking = BG_UNMARKED
                 update(markedField)
-                Log.i("GameViewModel", "Updated field with $BG_UNMARKED marking on DB: $markedField")
+//                Log.i("GameViewModel", "Updated field with $BG_UNMARKED marking on DB: $markedField")
             }
             titleHolder.value!!.score = _gameScore.value!!
             update(titleHolder.value!!)
-            Log.i("GameViewModel", "Updated holder with score value of ${_gameScore.value}, holder: ${titleHolder.value}")
+//            Log.i("GameViewModel", "Updated holder with score value of ${_gameScore.value}, holder: ${titleHolder.value}")
 
         }
 
     }
 
     fun debugPrintEntries() {
-        Log.i("GameViewModel", "DebugPrintEntries function: ${_bingoBoard.value}")
+//        Log.i("GameViewModel", "DebugPrintEntries function: ${_bingoBoard.value}")
     }
 
     private fun convertIndexToLocation(index: Int): Byte {

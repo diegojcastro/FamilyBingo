@@ -69,21 +69,21 @@ class BoardHolderAdapter : RecyclerView.Adapter<BoardHolderAdapter.ViewHolder>()
                 "Setup" -> {
                     val actionToSetup = LoadGameFragmentDirections.actionLoadGameFragmentToBoardSetupFragment()
                     actionToSetup.boardTitle = holder.title.text.toString()
-                    Log.i("LoadGameViewModel", "Clicked the title that says ${holder.title.text}, navigating to ${holder.status.text}")
+//                    Log.i("LoadGameViewModel", "Clicked the title that says ${holder.title.text}, navigating to ${holder.status.text}")
                     myNavC.navigate(actionToSetup)
                 }
                 "Playing Game" -> {
                     val actionToGame = LoadGameFragmentDirections.actionLoadGameFragmentToGameFragment()
                     actionToGame.boardTitle = holder.title.text.toString()
-                    Log.i("LoadGameViewModel", "Clicked the title that says ${holder.title.text}, navigating to ${holder.status.text}")
+//                    Log.i("LoadGameViewModel", "Clicked the title that says ${holder.title.text}, navigating to ${holder.status.text}")
                     myNavC.navigate(actionToGame)
                 }
-                else -> Log.i("LoadGameViewModel", "Not a suitable game state (setup / playing game)")
+                else -> {}//Log.i("LoadGameViewModel", "Not a suitable game state (setup / playing game)")
             }
         }
 
         holder.trashImage.setOnClickListener {view : View ->
-            Log.i("LoadGameViewModel", "Trash image clicked on ${holder.title.text}")
+//            Log.i("LoadGameViewModel", "Trash image clicked on ${holder.title.text}")
             val mDialogView = LayoutInflater.from(holder.trashImage.context).inflate(R.layout.load_delete_dialog, null)
             val mBuilder = AlertDialog.Builder(holder.trashImage.context)
                 .setView(mDialogView)
@@ -100,9 +100,9 @@ class BoardHolderAdapter : RecyclerView.Adapter<BoardHolderAdapter.ViewHolder>()
             }
 
             mDialogView.deleteDialogDelete.setOnClickListener {
-                Log.i("BoardHolderAdapter", "Clicked the delete button.")
+//                Log.i("BoardHolderAdapter", "Clicked the delete button.")
                 _flagForDeletion.value = true
-                Log.i("BoardHolderAdapter", "Flagged \"${_selectedTitleText.value}\" for deletion: ${_flagForDeletion.value}.")
+//                Log.i("BoardHolderAdapter", "Flagged \"${_selectedTitleText.value}\" for deletion: ${_flagForDeletion.value}.")
 
                 mAlertDialog.dismiss()
 
