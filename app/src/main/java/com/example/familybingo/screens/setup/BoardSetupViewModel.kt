@@ -364,7 +364,6 @@ class BoardSetupViewModel(
 //        }
 //    }
 
-    // TODO make keyboard disappear after editTextEntry
 
     private fun convertIndexToLocation(index: Int): Byte {
         val locX = index / 5 + 1
